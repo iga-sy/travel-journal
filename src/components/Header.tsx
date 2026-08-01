@@ -9,10 +9,10 @@ export default function Header() {
       >
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <span className="page-title" style={{ fontSize: 24 }}>
-            旅ノート
+            Travel Log
           </span>
+          <span style={{ fontSize: 12, color: "var(--color-ink-soft)", marginLeft: 8 }}>— with gratitude —</span>
         </Link>
-        <span style={{ color: "var(--color-ink-soft)", fontSize: 13 }}>Travel Journal</span>
       </div>
     </header>
   );

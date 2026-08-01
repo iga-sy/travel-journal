@@ -96,6 +96,9 @@ img {
 .badge-食事 {
   background: var(--color-food);
 }
+.badge-カフェ {
+  background: var(--color-cafe);
+}
 .badge-観光 {
   background: var(--color-sight);
 }
@@ -108,4 +111,115 @@ img {
 
 .leaflet-container {
   border-radius: var(--radius-lg);
+}
+
+.field-input {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.field-input:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -1px;
+}
+
+/* 旅程：日付ごとに横並びのカラムで表示 */
+.timeline-days {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  align-items: flex-start;
+}
+
+.timeline-day {
+  flex: 1 0 200px;
+  min-width: 200px;
+  max-width: 240px;
+}
+
+/* 旅程横のメモ（チャット投稿風コメント） */
+.comment-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.comment-author {
+  font-weight: 600;
+  color: var(--color-ink);
+  flex-shrink: 0;
+}
+
+.comment-text {
+  color: var(--color-ink-soft);
+  word-break: break-word;
+}
+
+/* 旅程の各項目：ドット＋縦ラインでつなぐタイムライン表現 */
+.timeline-entry {
+  display: flex;
+  gap: 12px;
+}
+
+.timeline-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10px;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.timeline-line {
+  flex: 1;
+  width: 2px;
+  background: var(--color-line);
+  margin-top: 4px;
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-soft);
+  background: var(--color-surface);
+  transition: color var(--transition-base), border-color var(--transition-base);
+}
+
+.icon-link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.timeline-time-pill {
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+  margin-bottom: 8px;
 }

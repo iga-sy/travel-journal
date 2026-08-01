@@ -1,10 +1,11 @@
 import { readdir, readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { webcrypto as crypto } from "node:crypto";
 
-const ITERATIONS = 600_000;
+export const ITERATIONS = 600_000;
 
-async function loadEnvLocal() {
+export async function loadEnvLocal() {
   try {
     const text = await readFile(".env.local", "utf-8");
     for (const line of text.split("\n")) {
@@ -54,25 +55,30 @@ async function walk(dir) {
   return files;
 }
 
-async function main() {
-  await loadEnvLocal();
-  const password = process.env.SITE_PASSWORD;
-  if (!password) {
-    console.error(
-      "エラー: SITE_PASSWORD が設定されていません。ローカルでは .env.local に SITE_PASSWORD=... を書くか、CI では repository secret を設定してください。",
-    );
-    process.exit(1);
+// 既存の public/enc-meta.json があればsaltを再利用する（編集保存のたびに
+// saltをローテーションすると無駄が多いため）。無ければ新規生成。
+export async function loadOrCreateSalt() {
+  try {
+    const meta = JSON.parse(await readFile("public/enc-meta.json", "utf-8"));
+    if (meta.salt) return Buffer.from(meta.salt, "base64");
+  } catch {
+    // 無ければ新規生成
   }
+  return Buffer.from(crypto.getRandomValues(new Uint8Array(16)));
+}
 
-  const salt = crypto.getRandomValues(new Uint8Array(16));
+async function writeEncMeta(salt) {
+  await mkdir("public", { recursive: true });
+  await writeFile(
+    "public/enc-meta.json",
+    JSON.stringify({ salt: Buffer.from(salt).toString("base64"), iterations: ITERATIONS }),
+  );
+}
+
+export async function encryptTripsData(password) {
+  const salt = await loadOrCreateSalt();
   const key = await deriveKey(password, salt);
 
-  await rm("public/data.enc", { force: true });
-  await rm("public/enc-meta.json", { force: true });
-  await rm("public/photos-enc", { recursive: true, force: true });
-  await mkdir("public", { recursive: true });
-
-  // 旅程データ（trips-index.json + trips/*.json）をまとめて暗号化
   const tripsIndex = JSON.parse(await readFile("src/data/trips-index.json", "utf-8"));
   const tripFiles = (await readdir("src/data/trips")).filter((f) => f.endsWith(".json"));
   const trips = {};
@@ -82,9 +88,20 @@ async function main() {
   }
   const payload = JSON.stringify({ tripsIndex, trips });
   const encryptedData = await encryptBytes(key, new TextEncoder().encode(payload));
-  await writeFile("public/data.enc", encryptedData);
 
-  // 写真を再帰的に暗号化（assets-source/photos/** -> public/photos-enc/**.enc）
+  await mkdir("public", { recursive: true });
+  await writeFile("public/data.enc", encryptedData);
+  await writeEncMeta(salt);
+
+  return { tripCount: tripFiles.length };
+}
+
+export async function encryptPhotos(password) {
+  const salt = await loadOrCreateSalt();
+  const key = await deriveKey(password, salt);
+
+  await rm("public/photos-enc", { recursive: true, force: true });
+
   const photosRoot = "assets-source/photos";
   let photoCount = 0;
   try {
@@ -101,13 +118,27 @@ async function main() {
   } catch (e) {
     if (e.code !== "ENOENT") throw e;
   }
+  await writeEncMeta(salt);
 
-  await writeFile(
-    "public/enc-meta.json",
-    JSON.stringify({ salt: Buffer.from(salt).toString("base64"), iterations: ITERATIONS }),
-  );
-
-  console.log(`暗号化完了: 旅行データ ${tripFiles.length}件, 写真 ${photoCount}枚`);
+  return { photoCount };
 }
 
-main();
+async function main() {
+  await loadEnvLocal();
+  const password = process.env.SITE_PASSWORD;
+  if (!password) {
+    console.error(
+      "エラー: SITE_PASSWORD が設定されていません。ローカルでは .env.local に SITE_PASSWORD=... を書くか、CI では repository secret を設定してください。",
+    );
+    process.exit(1);
+  }
+
+  const { tripCount } = await encryptTripsData(password);
+  const { photoCount } = await encryptPhotos(password);
+
+  console.log(`暗号化完了: 旅行データ ${tripCount}件, 写真 ${photoCount}枚`);
+}
+
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}

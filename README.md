@@ -1,4 +1,4 @@
-# 旅ノート（Travel Journal）
+# Travel Log - with gratitude -
 
 複数の旅行を「しおり（旅行前）」「アルバム（旅行後）」として一元管理する、個人用の旅行記録Webアプリです。
 React + Vite + TypeScript + Leaflet で構築し、GitHub Pagesで無料公開する前提の構成になっています。

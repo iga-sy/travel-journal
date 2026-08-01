@@ -24,7 +24,13 @@ function collectPhotos(trip: Trip): AlbumPhoto[] {
 
 type SortMode = "date" | "place";
 
-export default function Album({ trip }: { trip: Trip }) {
+interface AlbumProps {
+  trip: Trip;
+  isEditing?: boolean;
+  onSetCover?: (path: string) => void;
+}
+
+export default function Album({ trip, isEditing, onSetCover }: AlbumProps) {
   const photos = useMemo(() => collectPhotos(trip), [trip]);
   const [sortMode, setSortMode] = useState<SortMode>("date");
   const [selected, setSelected] = useState<AlbumPhoto | null>(null);
@@ -65,20 +71,64 @@ export default function Album({ trip }: { trip: Trip }) {
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 12 }}>
-        {sorted.map((photo, idx) => (
-          <button
-            key={idx}
-            onClick={() => setSelected(photo)}
-            style={{ padding: 0, border: "none", background: "none", cursor: "pointer", borderRadius: 8, overflow: "hidden" }}
-          >
-            <EncryptedImage
-              path={photo.src}
-              alt={photo.place ?? photo.date}
-              style={{ width: "100%", aspectRatio: "4 / 3", objectFit: "cover" }}
-            />
-          </button>
-        ))}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+          gap: 12,
+          maxHeight: 640,
+          overflowY: "auto",
+          paddingRight: 4,
+        }}
+      >
+        {sorted.map((photo, idx) => {
+          const isCover = photo.src === trip.coverPhoto;
+          return (
+            <div key={idx} style={{ position: "relative", borderRadius: 8, overflow: "hidden" }}>
+              <button
+                onClick={() => setSelected(photo)}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  padding: 0,
+                  border: isCover ? "2px solid var(--color-accent)" : "none",
+                  background: "none",
+                  cursor: "pointer",
+                  borderRadius: 8,
+                  overflow: "hidden",
+                  boxSizing: "border-box",
+                }}
+              >
+                <EncryptedImage
+                  path={photo.src}
+                  alt={photo.place ?? photo.date}
+                  style={{ width: "100%", aspectRatio: "4 / 3", objectFit: "cover" }}
+                />
+              </button>
+              {isEditing && (
+                <button
+                  onClick={() => onSetCover?.(photo.src)}
+                  disabled={isCover}
+                  style={{
+                    position: "absolute",
+                    bottom: 4,
+                    left: 4,
+                    right: 4,
+                    fontSize: 11,
+                    padding: "3px 6px",
+                    borderRadius: 6,
+                    border: "none",
+                    background: isCover ? "var(--color-accent)" : "rgba(0,0,0,0.6)",
+                    color: "#fff",
+                    cursor: isCover ? "default" : "pointer",
+                  }}
+                >
+                  {isCover ? "カバー写真" : "カバーに設定"}
+                </button>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {selected && (
@@ -108,7 +158,7 @@ export default function Album({ trip }: { trip: Trip }) {
             <EncryptedImage
               path={selected.src}
               alt={selected.place ?? selected.date}
-              style={{ width: "100%", maxHeight: 420, objectFit: "cover" }}
+              style={{ width: "100%", maxHeight: "70vh", objectFit: "contain", background: "var(--color-bg)" }}
             />
             <div style={{ padding: 16 }}>
               {selected.place && <strong>{selected.place}</strong>}

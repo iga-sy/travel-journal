@@ -1,0 +1,144 @@
+{
+  "id": "nasu2025",
+  "name": "那須旅行 2025-2026年末年始",
+  "startDate": "2025-12-30",
+  "endDate": "2026-01-01",
+  "regions": [
+    "那須"
+  ],
+  "coverPhoto": "photos/nasu2025/day3-01-hervest-terrace.jpg",
+  "memo": "",
+  "schedule": [
+    {
+      "date": "2025-12-30",
+      "time": "12:30",
+      "name": "蕎麦処 こなす",
+      "category": "食事",
+      "address": "栃木県那須郡那須町高久乙586-42",
+      "location": {
+        "lat": 37.035831,
+        "lng": 140.006607
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E8%95%8E%E9%BA%A6%E5%87%A6%20%E3%81%93%E3%81%AA%E3%81%99%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%85%E4%B9%99586-42",
+      "photos": [
+        "photos/nasu2025/day1-01-konasu.jpg"
+      ]
+    },
+    {
+      "date": "2025-12-30",
+      "time": "13:00",
+      "name": "WHITE NOTE",
+      "category": "観光",
+      "address": "栃木県那須郡那須町高久乙142-19",
+      "location": {
+        "lat": 37.059341,
+        "lng": 139.981842
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=WHITE%20NOTE%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%85%E4%B9%99142-19",
+      "officialUrl": "http://whitenote.jp/",
+      "memo": "生活道具店。雑貨・日用品。",
+      "photos": [
+        "photos/nasu2025/day1-02-whitenote.jpg"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "time": "11:30",
+      "name": "水車の里 瑞穂蔵",
+      "category": "食事",
+      "address": "栃木県那須郡那須町湯本新林357-32",
+      "location": {
+        "lat": 37.104355,
+        "lng": 139.988068
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B0%B4%E8%BB%8A%E3%81%AE%E9%87%8C%20%E7%91%9E%E7%A9%82%E8%94%B5%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E6%B9%AF%E6%9C%AC%E6%96%B0%E6%9E%97357-32",
+      "officialUrl": "https://mizuhokura-food.com/",
+      "memo": "釜炊きごはんと田舎料理。和牛ステーキ御膳。",
+      "photos": [
+        "photos/nasu2025/day2-01-mizuhokura.jpg"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "time": "13:00",
+      "name": "KiliKili Coffee Roaster Nasu",
+      "category": "カフェ",
+      "address": "栃木県那須郡那須町高久丙4959-5",
+      "location": {
+        "lat": 37.033173,
+        "lng": 140.056778
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=KiliKili%20Coffee%20Roaster%20Nasu%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%85%E4%B8%994959-5",
+      "memo": "自家焙煎コーヒーとスイーツ。バスクチーズケーキなど。",
+      "photos": [
+        "photos/nasu2025/day2-02-kilikili.jpg",
+        "photos/nasu2025/day2-03-kilikili-dessert.jpg"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "time": "17:30",
+      "name": "ホテルハーヴェスト那須（夕食）",
+      "category": "食事",
+      "address": "栃木県那須郡那須町大字高久丙1792",
+      "location": {
+        "lat": 37.079765,
+        "lng": 140.024887
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%9B%E3%83%86%E3%83%AB%E3%83%8F%E3%83%BC%E3%83%B4%E3%82%A7%E3%82%B9%E3%83%88%E9%82%A3%E9%A0%88%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E5%A4%A7%E5%AD%97%E9%AB%98%E4%B9%85%E4%B8%991792",
+      "officialUrl": "https://www.resorthotels109.com/nasu/",
+      "photos": [
+        "photos/nasu2025/day2-04-hervest-dinner.jpg"
+      ]
+    },
+    {
+      "date": "2026-01-01",
+      "time": "09:30",
+      "name": "ホテルハーヴェスト那須（テラス）",
+      "category": "宿泊",
+      "address": "栃木県那須郡那須町大字高久丙1792",
+      "location": {
+        "lat": 37.079765,
+        "lng": 140.024887
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%9B%E3%83%86%E3%83%AB%E3%83%8F%E3%83%BC%E3%83%B4%E3%82%A7%E3%82%B9%E3%83%88%E9%82%A3%E9%A0%88%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E5%A4%A7%E5%AD%97%E9%AB%98%E4%B9%85%E4%B8%991792",
+      "officialUrl": "https://www.resorthotels109.com/nasu/",
+      "photos": [
+        "photos/nasu2025/day3-01-hervest-terrace.jpg"
+      ]
+    }
+  ],
+  "photos": [
+    {
+      "path": "photos/nasu2025/day1-general-01.jpg",
+      "date": "2025-12-30",
+      "time": "12:02"
+    },
+    {
+      "path": "photos/nasu2025/day1-general-02.jpg",
+      "date": "2025-12-30",
+      "time": "12:35"
+    },
+    {
+      "path": "photos/nasu2025/day2-general-01.jpg",
+      "date": "2025-12-31",
+      "time": "11:59"
+    },
+    {
+      "path": "photos/nasu2025/day2-general-02.jpg",
+      "date": "2025-12-31",
+      "time": "12:45"
+    },
+    {
+      "path": "photos/nasu2025/day2-general-03.jpg",
+      "date": "2025-12-31",
+      "time": "18:28"
+    },
+    {
+      "path": "photos/nasu2025/day2-general-04.jpg",
+      "date": "2025-12-31",
+      "time": "18:28"
+    }
+  ],
+  "comments": []
+}

@@ -74,9 +74,10 @@ export default function PasswordGate({ children }: { children: ReactNode }) {
         className="card"
         style={{ padding: 32, width: "100%", maxWidth: 320, textAlign: "center" }}
       >
-        <p className="page-title" style={{ fontSize: 22, margin: "0 0 8px" }}>
-          旅ノート
+        <p className="page-title" style={{ fontSize: 22, margin: "0 0 4px" }}>
+          Travel Log
         </p>
+        <p style={{ fontSize: 12, color: "var(--color-ink-soft)", margin: "0 0 8px" }}>— with gratitude —</p>
         <p style={{ color: "var(--color-ink-soft)", fontSize: 14, margin: "0 0 20px" }}>
           パスワードを入力してください
         </p>

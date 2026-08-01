@@ -7,14 +7,14 @@
     "那須",
     "那須塩原"
   ],
-  "coverPhoto": "photos/nasu2024/day1-04-nasudake.jpg",
-  "memo": "栃木県那須エリアを巡った2泊3日。チョコレート専門店やカフェ巡り、那須岳登山など。",
+  "coverPhoto": "photos/nasu2024/day3-general-08.jpg",
+  "memo": "",
   "schedule": [
     {
       "date": "2024-09-06",
       "time": "12:51",
       "name": "NCACAO CHOCOLATE",
-      "category": "食事",
+      "category": "カフェ",
       "address": "栃木県那須郡那須町高久5240-2",
       "location": {
         "lat": 37.059341,
@@ -86,7 +86,7 @@
       "date": "2024-09-07",
       "time": "14:09",
       "name": "NASU SHOZO CAFE",
-      "category": "食事",
+      "category": "カフェ",
       "address": "栃木県那須郡那須町高久乙2730-25",
       "location": {
         "lat": 37.055519,
@@ -101,7 +101,7 @@
       "date": "2024-09-07",
       "time": "15:55",
       "name": "Cafe facile",
-      "category": "食事",
+      "category": "カフェ",
       "address": "栃木県那須郡那須町高久甲5462-1",
       "location": {
         "lat": 37.001896,
@@ -129,7 +129,7 @@
       "date": "2024-09-08",
       "time": "14:08",
       "name": "NONOWA CAFE",
-      "category": "食事",
+      "category": "カフェ",
       "address": "栃木県那須郡那須町寺子乙257-1",
       "location": {
         "lat": 37.002014,
@@ -145,7 +145,7 @@
       "date": "2024-09-08",
       "time": "14:49",
       "name": "Iris bread & coffee",
-      "category": "食事",
+      "category": "カフェ",
       "address": "栃木県那須塩原市本町5-2",
       "location": {
         "lat": 36.97002,
@@ -326,6 +326,13 @@
       "path": "photos/nasu2024/day3-general-15.jpg",
       "date": "2024-09-08",
       "time": "15:06"
+    }
+  ],
+  "comments": [
+    {
+      "id": "4a918f3c-f193-43dc-b3ad-1999c86f3bfe",
+      "author": "さあや",
+      "text": "♡"
     }
   ]
 }

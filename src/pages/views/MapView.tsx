@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import type { TripSummary } from "../../types/trip";
 import EncryptedImage from "../../components/EncryptedImage";
+import { TILE_URL, TILE_ATTRIBUTION } from "../../components/mapTiles";
 
 const JAPAN_CENTER: [number, number] = [36.2048, 138.2529];
 
@@ -13,10 +14,7 @@ export default function MapView({ trips }: { trips: TripSummary[] }) {
   return (
     <div style={{ height: 520 }}>
       <MapContainer center={center} zoom={trips.length > 0 ? 6 : 5} style={{ height: "100%", width: "100%" }}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} />
         {trips.map((trip) => (
           <Marker key={trip.id} position={[trip.location.lat, trip.location.lng]}>
             <Popup>

@@ -4,10 +4,49 @@
     "name": "那須旅行 2024",
     "startDate": "2024-09-06",
     "endDate": "2024-09-08",
-    "regions": ["那須", "那須塩原"],
-    "coverPhoto": "photos/nasu2024/day1-04-nasudake.jpg",
+    "regions": [
+      "那須",
+      "那須塩原"
+    ],
+    "coverPhoto": "photos/nasu2024/day3-general-08.jpg",
     "photoCount": 43,
     "comment": "栃木県那須エリアを巡った2泊3日。チョコレート専門店やカフェ巡り、那須岳登山など。",
-    "location": { "lat": 37.03, "lng": 140.02 }
+    "location": {
+      "lat": 37.03,
+      "lng": 140.02
+    }
+  },
+  {
+    "id": "nasunikko2025_04",
+    "name": "那須・日光旅行 2025春",
+    "startDate": "2025-04-27",
+    "endDate": "2025-04-29",
+    "regions": [
+      "那須",
+      "日光"
+    ],
+    "coverPhoto": "photos/nasunikko2025_04/day2-01-nanohana.jpg",
+    "photoCount": 60,
+    "comment": "菜の花の季節に日光と那須をめぐった家族旅行。華厳の滝・The Ritz-Carlton Nikko・明治の森記念館・チーズガーデンなど。",
+    "location": {
+      "lat": 36.9,
+      "lng": 139.8
+    }
+  },
+  {
+    "id": "nasu2025",
+    "name": "那須旅行 2025-2026年末年始",
+    "startDate": "2025-12-30",
+    "endDate": "2026-01-01",
+    "regions": [
+      "那須"
+    ],
+    "coverPhoto": "photos/nasu2025/day3-01-hervest-terrace.jpg",
+    "photoCount": 13,
+    "comment": "年末年始の那須旅行。そば・雑貨店・瑞穂蔵・KiliKiliコーヒー・ホテルハーヴェスト那須で過ごした3日間。",
+    "location": {
+      "lat": 37.08,
+      "lng": 140.02
+    }
   }
 ]

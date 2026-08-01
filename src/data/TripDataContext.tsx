@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Trip, TripSummary } from "../types/trip";
 
 interface DecryptedPayload {
@@ -9,6 +9,7 @@ interface DecryptedPayload {
 interface TripDataValue {
   tripsIndex: TripSummary[];
   getTrip: (id: string) => Trip | undefined;
+  updateTrip: (trip: Trip) => void;
   imageKey: CryptoKey;
 }
 
@@ -23,9 +24,18 @@ export function TripDataProvider({
   imageKey: CryptoKey;
   children: ReactNode;
 }) {
+  const [trips, setTrips] = useState(data.trips);
+  const [tripsIndex, setTripsIndex] = useState(data.tripsIndex);
+
   const value: TripDataValue = {
-    tripsIndex: [...data.tripsIndex].sort((a, b) => a.startDate.localeCompare(b.startDate)),
-    getTrip: (id) => data.trips[id],
+    tripsIndex: [...tripsIndex].sort((a, b) => a.startDate.localeCompare(b.startDate)),
+    getTrip: (id) => trips[id],
+    updateTrip: (trip) => {
+      setTrips((prev) => ({ ...prev, [trip.id]: trip }));
+      setTripsIndex((prev) =>
+        prev.map((t) => (t.id === trip.id && t.coverPhoto !== trip.coverPhoto ? { ...t, coverPhoto: trip.coverPhoto } : t)),
+      );
+    },
     imageKey,
   };
   return <TripDataContext.Provider value={value}>{children}</TripDataContext.Provider>;

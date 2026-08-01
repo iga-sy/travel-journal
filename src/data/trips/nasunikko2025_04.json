@@ -1,0 +1,484 @@
+{
+  "id": "nasunikko2025_04",
+  "name": "那須・日光旅行 2025春",
+  "startDate": "2025-04-27",
+  "endDate": "2025-04-29",
+  "regions": [
+    "那須",
+    "日光"
+  ],
+  "coverPhoto": "photos/nasunikko2025_04/day2-01-nanohana.jpg",
+  "memo": "菜の花の季節に日光と那須をめぐった家族旅行。1日目は日光でかき氷・そば・華厳の滝・中禅寺湖・The Ritz-Carlton Nikko、2日目は那須で明治の森記念館・瑞穂蔵・チーズガーデン、3日目はパン屋やカフェ巡り。",
+  "schedule": [
+    {
+      "date": "2025-04-27",
+      "time": "11:10",
+      "name": "松月氷室",
+      "category": "カフェ",
+      "address": "栃木県日光市今市379",
+      "location": {
+        "lat": 36.722794,
+        "lng": 139.68573
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9D%BE%E6%9C%88%E6%B0%B7%E5%AE%A4%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E6%97%A5%E5%85%89%E5%B8%82%E4%BB%8A%E5%B8%82379",
+      "officialUrl": "https://www.instagram.com/shogetsuhimuro/",
+      "memo": "日光天然氷のかき氷。",
+      "photos": [
+        "photos/nasunikko2025_04/day1-01-matsugetsu.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-27",
+      "time": "12:23",
+      "name": "てんきょうや源平",
+      "category": "食事",
+      "address": "栃木県日光市木和田島2505-4",
+      "location": {
+        "lat": 36.679039,
+        "lng": 139.758606
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%A6%E3%82%93%E3%81%8D%E3%82%87%E3%81%86%E3%82%84%E6%BA%90%E5%B9%B3%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E6%97%A5%E5%85%89%E5%B8%82%E6%9C%A8%E5%92%8C%E7%94%B0%E5%B3%B62505-4",
+      "memo": "十割そばと天ぷら。",
+      "photos": [
+        "photos/nasunikko2025_04/day1-02-genpei.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-27",
+      "time": "14:00",
+      "name": "華厳の滝",
+      "category": "観光",
+      "address": "栃木県日光市中宮祠2479-2",
+      "location": {
+        "lat": 36.738907,
+        "lng": 139.503464
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E8%8F%AF%E5%8E%B3%E3%81%AE%E6%BB%9D%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E6%97%A5%E5%85%89%E5%B8%82%E4%B8%AD%E5%AE%AE%E7%A5%A02479-2",
+      "memo": "落差97mの名瀑。"
+    },
+    {
+      "date": "2025-04-27",
+      "time": "14:30",
+      "name": "中禅寺湖・二荒山神社中宮祠 大鳥居",
+      "category": "観光",
+      "address": "栃木県日光市中宮祠2484",
+      "location": {
+        "lat": 36.741398,
+        "lng": 139.494354
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E4%B8%AD%E7%A6%85%E5%AF%BA%E6%B9%96%E3%83%BB%E4%BA%8C%E8%8D%92%E5%B1%B1%E7%A5%9E%E7%A4%BE%E4%B8%AD%E5%AE%AE%E7%A5%A0%20%E5%A4%A7%E9%B3%A5%E5%B1%85%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E6%97%A5%E5%85%89%E5%B8%82%E4%B8%AD%E5%AE%AE%E7%A5%A02484",
+      "memo": "中禅寺湖畔の大鳥居。G7日光会合の記念モニュメントもある。",
+      "photos": [
+        "photos/nasunikko2025_04/day1-03-chuzenji.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-27",
+      "time": "15:30",
+      "name": "The Ritz-Carlton, Nikko（アフタヌーンティー）",
+      "category": "カフェ",
+      "address": "栃木県日光市中宮祠2482",
+      "location": {
+        "lat": 36.728291,
+        "lng": 139.493256
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=The%20Ritz-Carlton%2C%20Nikko%EF%BC%88%E3%82%A2%E3%83%95%E3%82%BF%E3%83%8C%E3%83%BC%E3%83%B3%E3%83%86%E3%82%A3%E3%83%BC%EF%BC%89%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E6%97%A5%E5%85%89%E5%B8%82%E4%B8%AD%E5%AE%AE%E7%A5%A02482",
+      "officialUrl": "https://www.ritzcarlton.com/en/hotels/tyonz-the-ritz-carlton-nikko/overview/",
+      "memo": "奥日光の季節を感じるアフタヌーンティー。",
+      "photos": [
+        "photos/nasunikko2025_04/day1-04-ritzcarlton.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-28",
+      "time": "10:30",
+      "name": "道の駅 明治の森・黒磯（菜の花畑）",
+      "category": "観光",
+      "address": "栃木県那須塩原市青木27",
+      "location": {
+        "lat": 37.011265,
+        "lng": 139.977371
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E9%81%93%E3%81%AE%E9%A7%85%20%E6%98%8E%E6%B2%BB%E3%81%AE%E6%A3%AE%E3%83%BB%E9%BB%92%E7%A3%AF%EF%BC%88%E8%8F%9C%E3%81%AE%E8%8A%B1%E7%95%91%EF%BC%89%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F%E5%B8%82%E9%9D%92%E6%9C%A827",
+      "officialUrl": "https://meijinomori.jp/",
+      "memo": "隣接する菜の花畑（ハンナガーデン）を散策。",
+      "photos": [
+        "photos/nasunikko2025_04/day2-01-nanohana.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-28",
+      "time": "11:00",
+      "name": "とちぎ明治の森記念館（旧青木家那須別邸）",
+      "category": "観光",
+      "address": "栃木県那須塩原市青木27",
+      "location": {
+        "lat": 37.011265,
+        "lng": 139.977371
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%A8%E3%81%A1%E3%81%8E%E6%98%8E%E6%B2%BB%E3%81%AE%E6%A3%AE%E8%A8%98%E5%BF%B5%E9%A4%A8%EF%BC%88%E6%97%A7%E9%9D%92%E6%9C%A8%E5%AE%B6%E9%82%A3%E9%A0%88%E5%88%A5%E9%82%B8%EF%BC%89%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F%E5%B8%82%E9%9D%92%E6%9C%A827",
+      "officialUrl": "https://www.pref.tochigi.lg.jp/culture/shisetsu/115.html",
+      "memo": "明治期の外交官・青木周蔵の那須別邸。"
+    },
+    {
+      "date": "2025-04-28",
+      "time": "12:38",
+      "name": "水車の里 瑞穂蔵",
+      "category": "食事",
+      "address": "栃木県那須郡那須町湯本新林357-32",
+      "location": {
+        "lat": 37.104355,
+        "lng": 139.988068
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B0%B4%E8%BB%8A%E3%81%AE%E9%87%8C%20%E7%91%9E%E7%A9%82%E8%94%B5%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E6%B9%AF%E6%9C%AC%E6%96%B0%E6%9E%97357-32",
+      "officialUrl": "https://mizuhokura-food.com/",
+      "memo": "釜炊きごはんと田舎料理。",
+      "photos": [
+        "photos/nasunikko2025_04/day2-02-mizuhokura.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-28",
+      "time": "14:39",
+      "name": "那須高原 チーズガーデン",
+      "category": "カフェ",
+      "address": "栃木県那須郡那須町高久甲喰木原2888",
+      "location": {
+        "lat": 37.001896,
+        "lng": 140.059875
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E9%82%A3%E9%A0%88%E9%AB%98%E5%8E%9F%20%E3%83%81%E3%83%BC%E3%82%BA%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%85%E7%94%B2%E5%96%B0%E6%9C%A8%E5%8E%9F2888",
+      "officialUrl": "https://cheesegarden.jp/",
+      "memo": "チーズケーキ・チーズタルトの専門店。",
+      "photos": [
+        "photos/nasunikko2025_04/day2-03-cheesegarden.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-29",
+      "time": "10:12",
+      "name": "那須のお米のパン屋さん",
+      "category": "カフェ",
+      "address": "栃木県那須郡那須町高久1579-330",
+      "location": {
+        "lat": 37.059341,
+        "lng": 139.981842
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E9%82%A3%E9%A0%88%E3%81%AE%E3%81%8A%E7%B1%B3%E3%81%AE%E3%83%91%E3%83%B3%E5%B1%8B%E3%81%95%E3%82%93%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%851579-330",
+      "officialUrl": "https://www.nasukomepan.com/",
+      "memo": "米粉パンとソフトクリーム。"
+    },
+    {
+      "date": "2025-04-29",
+      "time": "11:27",
+      "name": "Pino cafe&meal",
+      "category": "食事",
+      "address": "栃木県那須郡那須町高久甲5109-10",
+      "location": {
+        "lat": 36.986027,
+        "lng": 140.057938
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Pino%20cafe%26meal%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%85%E7%94%B25109-10",
+      "memo": "予約必須の隠れ家カフェでブランチ。",
+      "photos": [
+        "photos/nasunikko2025_04/day3-01-pino.jpg"
+      ]
+    },
+    {
+      "date": "2025-04-29",
+      "time": "13:55",
+      "name": "fil ice cream & coffee",
+      "category": "カフェ",
+      "address": "栃木県那須塩原市錦町4-17",
+      "location": {
+        "lat": 36.966999,
+        "lng": 140.053253
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=fil%20ice%20cream%20%26%20coffee%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F%E5%B8%82%E9%8C%A6%E7%94%BA4-17",
+      "officialUrl": "https://fil-icecream.stores.jp/",
+      "memo": "プラントベースのジェラート専門店。"
+    },
+    {
+      "date": "2025-04-29",
+      "time": "14:10",
+      "name": "1988 CAFE SHOZO",
+      "category": "カフェ",
+      "address": "栃木県那須塩原市高砂町6-6",
+      "location": {
+        "lat": 36.971886,
+        "lng": 140.050644
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=1988%20CAFE%20SHOZO%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F%E5%B8%82%E9%AB%98%E7%A0%82%E7%94%BA6-6",
+      "memo": "黒磯を代表する老舗カフェ。隣接の本屋study/にも立ち寄った。"
+    }
+  ],
+  "photos": [
+    {
+      "path": "photos/nasunikko2025_04/day1-general-01.jpg",
+      "date": "2025-04-27",
+      "time": "11:09"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-02.jpg",
+      "date": "2025-04-27",
+      "time": "11:09"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-03.jpg",
+      "date": "2025-04-27",
+      "time": "11:27"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-04.jpg",
+      "date": "2025-04-27",
+      "time": "15:35"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-05.jpg",
+      "date": "2025-04-27",
+      "time": "13:30"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-06.jpg",
+      "date": "2025-04-27",
+      "time": "13:32"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-07.jpg",
+      "date": "2025-04-27",
+      "time": "14:00"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-08.jpg",
+      "date": "2025-04-27",
+      "time": "14:02"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-09.jpg",
+      "date": "2025-04-27",
+      "time": "14:05"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-10.jpg",
+      "date": "2025-04-27",
+      "time": "14:10"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-11.jpg",
+      "date": "2025-04-27",
+      "time": "15:40"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-12.jpg",
+      "date": "2025-04-27",
+      "time": "17:30"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day1-general-13.jpg",
+      "date": "2025-04-27",
+      "time": "19:00"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-01.jpg",
+      "date": "2025-04-28",
+      "time": "08:00"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-02.jpg",
+      "date": "2025-04-28",
+      "time": "10:33"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-03.jpg",
+      "date": "2025-04-28",
+      "time": "11:05"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-04.jpg",
+      "date": "2025-04-28",
+      "time": "11:07"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-05.jpg",
+      "date": "2025-04-28",
+      "time": "11:09"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-06.jpg",
+      "date": "2025-04-28",
+      "time": "11:11"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-07.jpg",
+      "date": "2025-04-28",
+      "time": "11:13"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-08.jpg",
+      "date": "2025-04-28",
+      "time": "11:15"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-09.jpg",
+      "date": "2025-04-28",
+      "time": "11:17"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-10.jpg",
+      "date": "2025-04-28",
+      "time": "11:19"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-11.jpg",
+      "date": "2025-04-28",
+      "time": "11:25"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-12.jpg",
+      "date": "2025-04-28",
+      "time": "11:30"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-13.jpg",
+      "date": "2025-04-28",
+      "time": "11:35"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-14.jpg",
+      "date": "2025-04-28",
+      "time": "11:40"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-15.jpg",
+      "date": "2025-04-28",
+      "time": "11:45"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-16.jpg",
+      "date": "2025-04-28",
+      "time": "10:20"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-17.jpg",
+      "date": "2025-04-28",
+      "time": "10:22"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-18.jpg",
+      "date": "2025-04-28",
+      "time": "10:24"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-19.jpg",
+      "date": "2025-04-28",
+      "time": "10:26"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-20.jpg",
+      "date": "2025-04-28",
+      "time": "09:00"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-21.jpg",
+      "date": "2025-04-28",
+      "time": "09:05"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-22.jpg",
+      "date": "2025-04-28",
+      "time": "12:40"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-23.jpg",
+      "date": "2025-04-28",
+      "time": "12:45"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-24.jpg",
+      "date": "2025-04-28",
+      "time": "12:50"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-25.jpg",
+      "date": "2025-04-28",
+      "time": "12:55"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-26.jpg",
+      "date": "2025-04-28",
+      "time": "13:00"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-27.jpg",
+      "date": "2025-04-28",
+      "time": "13:05"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-28.jpg",
+      "date": "2025-04-28",
+      "time": "14:45"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-29.jpg",
+      "date": "2025-04-28",
+      "time": "14:50"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-30.jpg",
+      "date": "2025-04-28",
+      "time": "14:55"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day2-general-31.jpg",
+      "date": "2025-04-28",
+      "time": "13:07"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-01.jpg",
+      "date": "2025-04-29",
+      "time": "10:12"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-02.jpg",
+      "date": "2025-04-29",
+      "time": "10:13"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-03.jpg",
+      "date": "2025-04-29",
+      "time": "13:55"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-04.jpg",
+      "date": "2025-04-29",
+      "time": "14:10"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-05.jpg",
+      "date": "2025-04-29",
+      "time": "14:12"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-06.jpg",
+      "date": "2025-04-29",
+      "time": "14:33"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-07.jpg",
+      "date": "2025-04-29",
+      "time": "14:34"
+    },
+    {
+      "path": "photos/nasunikko2025_04/day3-general-08.jpg",
+      "date": "2025-04-29",
+      "time": "14:20"
+    }
+  ],
+  "comments": [
+    {
+      "id": "22c0fdfb-a062-4ef3-a822-5ba42deb3342",
+      "author": "Saya",
+      "text": "♡♡♡"
+    }
+  ]
+}
