@@ -51,6 +51,18 @@ public/photos/<tripId>/   # 実際の写真ファイル
 
 `trips/*.json` は追加するだけで自動的にアプリへ反映されます（コード側の変更は不要）。
 
+## サイトのパスワード保護
+
+トップに簡易パスワード画面（`src/components/PasswordGate.tsx`）を設置しています。**これは見た目のガードであり、本格的なアクセス制御ではありません**。サイトの静的ファイル（写真を含む）自体は誰でもURLを直接知っていれば取得できてしまう点に注意してください。
+
+パスワードを変更する場合は、以下でハッシュを再生成し `src/auth/sitePassword.ts` の `PASSWORD_HASH` を書き換えます。
+
+```bash
+node -e "console.log(require('crypto').createHash('sha256').update('新しいパスワード','utf8').digest('hex'))"
+```
+
+一度パスワードを通過すると、その端末のブラウザに解除状態が保存され（`localStorage`）、次回以降は再入力不要になります。
+
 ## GitHub Pagesへの公開
 
 `main`ブランチにpushすると `.github/workflows/deploy.yml` が自動でビルド・公開します。
