@@ -21,13 +21,13 @@ export default function TopPage() {
 
       <div className="tabbar">
         <button className={mode === "card" ? "active" : ""} onClick={() => setMode("card")}>
-          カード
+          Card
         </button>
         <button className={mode === "calendar" ? "active" : ""} onClick={() => setMode("calendar")}>
-          カレンダー
+          Calendar
         </button>
         <button className={mode === "map" ? "active" : ""} onClick={() => setMode("map")}>
-          地図
+          Map
         </button>
       </div>
 

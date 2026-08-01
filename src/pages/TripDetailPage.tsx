@@ -106,6 +106,64 @@ export default function TripDetailPage() {
     }
   }
 
+  function renderEditControls() {
+    if (!isDev) return null;
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+        {!isEditing ? (
+          <button
+            onClick={startEditing}
+            style={{
+              fontSize: 13,
+              padding: "6px 14px",
+              borderRadius: 999,
+              border: "1px solid var(--color-line)",
+              background: "transparent",
+              color: "var(--color-ink)",
+              cursor: "pointer",
+            }}
+          >
+            Edit
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              style={{
+                fontSize: 13,
+                padding: "6px 14px",
+                borderRadius: 999,
+                border: "none",
+                background: "var(--color-accent)",
+                color: "#fff",
+                cursor: saving ? "default" : "pointer",
+                opacity: saving ? 0.7 : 1,
+              }}
+            >
+              {saving ? "保存中..." : "保存"}
+            </button>
+            <button
+              onClick={cancelEditing}
+              style={{
+                fontSize: 13,
+                padding: "6px 14px",
+                borderRadius: 999,
+                border: "1px solid var(--color-line)",
+                background: "transparent",
+                color: "var(--color-ink-soft)",
+                cursor: "pointer",
+              }}
+            >
+              キャンセル
+            </button>
+          </>
+        )}
+        {saveMessage && <span style={{ fontSize: 13, color: "var(--color-ink-soft)" }}>{saveMessage}</span>}
+      </div>
+    );
+  }
+
   return (
     <main className="container" style={{ paddingTop: 32, paddingBottom: 64 }}>
       <Link to="/" style={{ fontSize: 14, color: "var(--color-ink-soft)", textDecoration: "none" }}>
@@ -148,64 +206,11 @@ export default function TripDetailPage() {
         displayed.memo && <p style={{ margin: "0 0 16px", color: "var(--color-ink-soft)" }}>{displayed.memo}</p>
       )}
 
-      {isDev && (
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-          {!isEditing ? (
-            <button
-              onClick={startEditing}
-              style={{
-                fontSize: 13,
-                padding: "6px 14px",
-                borderRadius: 999,
-                border: "1px solid var(--color-line)",
-                background: "transparent",
-                color: "var(--color-ink)",
-                cursor: "pointer",
-              }}
-            >
-              Edit
-            </button>
-          ) : (
-            <>
-              <button
-                onClick={handleSave}
-                disabled={saving}
-                style={{
-                  fontSize: 13,
-                  padding: "6px 14px",
-                  borderRadius: 999,
-                  border: "none",
-                  background: "var(--color-accent)",
-                  color: "#fff",
-                  cursor: saving ? "default" : "pointer",
-                  opacity: saving ? 0.7 : 1,
-                }}
-              >
-                {saving ? "保存中..." : "保存"}
-              </button>
-              <button
-                onClick={cancelEditing}
-                style={{
-                  fontSize: 13,
-                  padding: "6px 14px",
-                  borderRadius: 999,
-                  border: "1px solid var(--color-line)",
-                  background: "transparent",
-                  color: "var(--color-ink-soft)",
-                  cursor: "pointer",
-                }}
-              >
-                キャンセル
-              </button>
-            </>
-          )}
-          {saveMessage && <span style={{ fontSize: 13, color: "var(--color-ink-soft)" }}>{saveMessage}</span>}
-        </div>
-      )}
+      {renderEditControls()}
 
       <section style={{ marginBottom: 40 }}>
         <h2 className="page-title" style={{ fontSize: 20, marginBottom: 16 }}>
-          旅程
+          Schedule
         </h2>
         <div style={{ display: "flex", gap: 32, alignItems: "flex-start", flexWrap: "wrap" }}>
           <div style={{ flex: "3 1 480px", minWidth: 0 }}>
@@ -230,14 +235,15 @@ export default function TripDetailPage() {
 
       <section style={{ marginBottom: 40 }}>
         <h2 className="page-title" style={{ fontSize: 20, marginBottom: 16 }}>
-          アルバム
+          Album
         </h2>
+        {renderEditControls()}
         <Album trip={displayed} isEditing={isEditing} onSetCover={setCover} />
       </section>
 
       <section style={{ marginTop: 40 }}>
         <h2 className="page-title" style={{ fontSize: 20, marginBottom: 16 }}>
-          地図
+          Map
         </h2>
         <TripMap trip={displayed} />
       </section>

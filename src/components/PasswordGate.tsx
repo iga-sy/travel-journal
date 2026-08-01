@@ -1,9 +1,10 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { deriveKey, decryptToJson } from "../crypto/decrypt";
 import { TripDataProvider } from "../data/TripDataContext";
 import type { Trip, TripSummary } from "../types/trip";
 
 const BASE = import.meta.env.BASE_URL;
+const STORAGE_KEY = "travel-log-password";
 
 interface EncMeta {
   salt: string;
@@ -20,33 +21,57 @@ interface UnlockedState {
   imageKey: CryptoKey;
 }
 
+async function unlockWithPassword(password: string): Promise<UnlockedState> {
+  const metaRes = await fetch(`${BASE}enc-meta.json`);
+  const meta: EncMeta = await metaRes.json();
+
+  const key = await deriveKey(password, meta.salt, meta.iterations);
+
+  const dataRes = await fetch(`${BASE}data.enc`);
+  const buf = await dataRes.arrayBuffer();
+  const data = await decryptToJson<DecryptedPayload>(key, buf);
+
+  return { data, imageKey: key };
+}
+
 export default function PasswordGate({ children }: { children: ReactNode }) {
   const [unlocked, setUnlocked] = useState<UnlockedState | null>(null);
   const [input, setInput] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  // 端末に保存済みのパスワードを確認し終えるまで、ログインフォームを一瞬も出さないためのフラグ。
+  const [checkingStoredAuth, setCheckingStoredAuth] = useState(true);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) {
+      setCheckingStoredAuth(false);
+      return;
+    }
+    unlockWithPassword(stored)
+      .then((state) => setUnlocked(state))
+      .catch(() => localStorage.removeItem(STORAGE_KEY))
+      .finally(() => setCheckingStoredAuth(false));
+  }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(false);
     try {
-      const metaRes = await fetch(`${BASE}enc-meta.json`);
-      const meta: EncMeta = await metaRes.json();
-
-      const key = await deriveKey(input, meta.salt, meta.iterations);
-
-      const dataRes = await fetch(`${BASE}data.enc`);
-      const buf = await dataRes.arrayBuffer();
-      const data = await decryptToJson<DecryptedPayload>(key, buf);
-
-      setUnlocked({ data, imageKey: key });
+      const state = await unlockWithPassword(input);
+      localStorage.setItem(STORAGE_KEY, input);
+      setUnlocked(state);
     } catch {
       // AES-GCMの認証タグ不一致（＝パスワード違い）を含め、失敗はすべて「パスワードが違います」として扱う
       setError(true);
     } finally {
       setLoading(false);
     }
+  }
+
+  if (checkingStoredAuth) {
+    return null;
   }
 
   if (unlocked) {
@@ -137,7 +162,7 @@ export default function PasswordGate({ children }: { children: ReactNode }) {
             opacity: loading ? 0.7 : 1,
           }}
         >
-          {loading ? "復号中..." : "入る"}
+          {loading ? "復号中..." : "ENTER"}
         </button>
       </form>
     </div>
