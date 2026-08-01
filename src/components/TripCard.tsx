@@ -8,8 +8,22 @@ export default function TripCard({ trip }: { trip: TripSummary }) {
     <Link
       to={`/trips/${trip.id}`}
       className="card"
-      style={{ display: "block", textDecoration: "none", color: "inherit" }}
+      style={{ display: "block", textDecoration: "none", color: "inherit", position: "relative" }}
     >
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          right: 12,
+          bottom: 12,
+          fontSize: 18,
+          opacity: 0.6,
+          transform: "rotate(-12deg)",
+          pointerEvents: "none",
+        }}
+      >
+        🐾
+      </span>
       <div style={{ aspectRatio: "3 / 2", overflow: "hidden" }}>
         <EncryptedImage
           path={trip.coverPhoto}

@@ -79,7 +79,23 @@ export default function PasswordGate({ children }: { children: ReactNode }) {
         </p>
         <p style={{ fontSize: 12, color: "var(--color-ink-soft)", margin: "0 0 8px" }}>— with gratitude —</p>
         <p style={{ color: "var(--color-ink-soft)", fontSize: 14, margin: "0 0 20px" }}>
-          パスワードを入力してください
+          パスワードを入力してね(ᯫ᳐૦⩊૦ᯫ᳐)
+          <button
+            type="submit"
+            disabled={loading}
+            aria-label="ログイン"
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              margin: 0,
+              font: "inherit",
+              color: "var(--color-accent)",
+              cursor: loading ? "default" : "pointer",
+            }}
+          >
+            ♡
+          </button>
         </p>
         <input
           type="password"
