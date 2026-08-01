@@ -1,0 +1,135 @@
+import { useMemo, useState } from "react";
+import type { Trip } from "../../types/trip";
+
+const BASE = import.meta.env.BASE_URL;
+
+interface AlbumPhoto {
+  src: string;
+  date: string;
+  place: string;
+  memo?: string;
+}
+
+function collectPhotos(trip: Trip): AlbumPhoto[] {
+  const photos: AlbumPhoto[] = [];
+  for (const item of trip.schedule) {
+    for (const p of item.photos ?? []) {
+      photos.push({ src: p, date: item.date, place: item.name, memo: item.memo });
+    }
+  }
+  return photos;
+}
+
+type SortMode = "date" | "place";
+
+export default function Album({ trip }: { trip: Trip }) {
+  const photos = useMemo(() => collectPhotos(trip), [trip]);
+  const [sortMode, setSortMode] = useState<SortMode>("date");
+  const [selected, setSelected] = useState<AlbumPhoto | null>(null);
+
+  const sorted = useMemo(() => {
+    const copy = [...photos];
+    if (sortMode === "date") {
+      copy.sort((a, b) => a.date.localeCompare(b.date));
+    } else {
+      copy.sort((a, b) => a.place.localeCompare(b.place, "ja"));
+    }
+    return copy;
+  }, [photos, sortMode]);
+
+  if (photos.length === 0) {
+    return <p style={{ color: "var(--color-ink-soft)" }}>写真がまだ登録されていません。</p>;
+  }
+
+  return (
+    <div>
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+        {(["date", "place"] as const).map((m) => (
+          <button
+            key={m}
+            onClick={() => setSortMode(m)}
+            style={{
+              fontSize: 13,
+              padding: "4px 12px",
+              borderRadius: 999,
+              border: "1px solid var(--color-line)",
+              background: sortMode === m ? "var(--color-accent-soft)" : "transparent",
+              color: "inherit",
+              cursor: "pointer",
+            }}
+          >
+            {m === "date" ? "日付順" : "場所別"}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 12 }}>
+        {sorted.map((photo, idx) => (
+          <button
+            key={idx}
+            onClick={() => setSelected(photo)}
+            style={{ padding: 0, border: "none", background: "none", cursor: "pointer", borderRadius: 8, overflow: "hidden" }}
+          >
+            <img
+              src={BASE + photo.src}
+              alt={photo.place}
+              style={{ width: "100%", aspectRatio: "4 / 3", objectFit: "cover" }}
+            />
+          </button>
+        ))}
+      </div>
+
+      {selected && (
+        <div
+          onClick={() => setSelected(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.75)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 24,
+            zIndex: 50,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "var(--color-surface)",
+              borderRadius: "var(--radius-lg)",
+              overflow: "hidden",
+              maxWidth: 640,
+              width: "100%",
+            }}
+          >
+            <img
+              src={BASE + selected.src}
+              alt={selected.place}
+              style={{ width: "100%", maxHeight: 420, objectFit: "cover" }}
+            />
+            <div style={{ padding: 16 }}>
+              <strong>{selected.place}</strong>
+              <p style={{ margin: "4px 0", fontSize: 13, color: "var(--color-ink-soft)" }}>{selected.date}</p>
+              {selected.memo && <p style={{ margin: 0, fontSize: 14 }}>{selected.memo}</p>}
+              <button
+                onClick={() => setSelected(null)}
+                style={{
+                  marginTop: 12,
+                  fontSize: 13,
+                  color: "var(--color-accent)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
+              >
+                閉じる
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

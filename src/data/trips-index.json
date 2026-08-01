@@ -1,0 +1,13 @@
+[
+  {
+    "id": "hokkaido2026",
+    "name": "北海道旅行 2026",
+    "startDate": "2026-08-10",
+    "endDate": "2026-08-13",
+    "regions": ["札幌", "小樽"],
+    "coverPhoto": "photos/hokkaido2026/cover.svg",
+    "photoCount": 4,
+    "comment": "夏の北海道を満喫する3泊4日のサンプル旅行記録。",
+    "location": { "lat": 43.0621, "lng": 141.3544 }
+  }
+]

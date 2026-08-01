@@ -1,0 +1,44 @@
+:root {
+  --color-bg: #faf7f2;
+  --color-surface: #ffffff;
+  --color-ink: #2b2622;
+  --color-ink-soft: #6b6259;
+  --color-accent: #b5693b;
+  --color-accent-soft: #e8d5c4;
+  --color-line: #e7e0d6;
+
+  --color-food: #c9683f;
+  --color-sight: #3f6b3a;
+  --color-move: #3a5a78;
+  --color-stay: #6a4f8a;
+
+  --font-heading: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-body: "Hiragino Sans", "Yu Gothic", sans-serif;
+
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-card: 0 4px 20px rgba(43, 38, 34, 0.08);
+  --shadow-card-hover: 0 8px 28px rgba(43, 38, 34, 0.14);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+
+  --transition-base: 180ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #1c1a17;
+    --color-surface: #262320;
+    --color-ink: #f2ede6;
+    --color-ink-soft: #b8afa4;
+    --color-accent: #e0925f;
+    --color-accent-soft: #3a2f28;
+    --color-line: #3a352f;
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+    --shadow-card-hover: 0 8px 28px rgba(0, 0, 0, 0.5);
+  }
+}
