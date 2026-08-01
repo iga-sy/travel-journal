@@ -1,8 +1,8 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import type { TripSummary } from "../../types/trip";
+import EncryptedImage from "../../components/EncryptedImage";
 
-const BASE = import.meta.env.BASE_URL;
 const JAPAN_CENTER: [number, number] = [36.2048, 138.2529];
 
 export default function MapView({ trips }: { trips: TripSummary[] }) {
@@ -21,8 +21,8 @@ export default function MapView({ trips }: { trips: TripSummary[] }) {
           <Marker key={trip.id} position={[trip.location.lat, trip.location.lng]}>
             <Popup>
               <div style={{ minWidth: 160 }}>
-                <img
-                  src={BASE + trip.coverPhoto}
+                <EncryptedImage
+                  path={trip.coverPhoto}
                   alt={trip.name}
                   style={{ width: "100%", borderRadius: 8, marginBottom: 8 }}
                 />

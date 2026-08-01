@@ -1,0 +1,331 @@
+{
+  "id": "nasu2024",
+  "name": "那須旅行 2024",
+  "startDate": "2024-09-06",
+  "endDate": "2024-09-08",
+  "regions": [
+    "那須",
+    "那須塩原"
+  ],
+  "coverPhoto": "photos/nasu2024/day1-04-nasudake.jpg",
+  "memo": "栃木県那須エリアを巡った2泊3日。チョコレート専門店やカフェ巡り、那須岳登山など。",
+  "schedule": [
+    {
+      "date": "2024-09-06",
+      "time": "12:51",
+      "name": "NCACAO CHOCOLATE",
+      "category": "食事",
+      "address": "栃木県那須郡那須町高久5240-2",
+      "location": {
+        "lat": 37.059341,
+        "lng": 139.981842
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=NCACAO%20CHOCOLATE%20%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%855240-2",
+      "photos": [
+        "photos/nasu2024/day1-02-ncacao.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-06",
+      "time": "13:44",
+      "name": "茶屋 卯三郎",
+      "category": "食事",
+      "address": "栃木県那須郡那須町高久乙湯道東2727-344",
+      "location": {
+        "lat": 37.059341,
+        "lng": 139.981842
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E8%8C%B6%E5%B1%8B%20%E5%8D%AF%E4%B8%89%E9%83%8E%20%E9%82%A3%E9%A0%88",
+      "officialUrl": "https://usaburou.com/",
+      "memo": "古民家の和食処。おこわ・釜めしが名物。",
+      "photos": [
+        "photos/nasu2024/day1-03-usaburo.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-06",
+      "time": "15:18",
+      "name": "那須岳（茶臼岳）山頂付近",
+      "category": "観光",
+      "address": "栃木県那須郡那須町",
+      "location": {
+        "lat": 37.12476,
+        "lng": 139.975126
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E9%82%A3%E9%A0%88%E5%B2%B3%20%E8%8C%B6%E8%87%BC%E5%B2%B3",
+      "memo": "那須ロープウェイ山麓駅付近を起点に登山。",
+      "photos": [
+        "photos/nasu2024/day1-04-nasudake.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-06",
+      "time": "19:45",
+      "name": "ホテルの夕食ビュッフェ",
+      "category": "食事",
+      "photos": [
+        "photos/nasu2024/day1-06-hotel-dinner.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-07",
+      "time": "12:30",
+      "name": "柏屋（手打ち蕎麦）",
+      "category": "食事",
+      "address": "栃木県那須塩原市板室599-5",
+      "location": {
+        "lat": 37.101192,
+        "lng": 139.926407
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%89%8B%E6%89%93%E3%81%A1%E8%95%8E%E9%BA%A6%20%E6%9F%8F%E5%B1%8B%20%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F",
+      "photos": [
+        "photos/nasu2024/day2-01-kashiwaya.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-07",
+      "time": "14:09",
+      "name": "NASU SHOZO CAFE",
+      "category": "食事",
+      "address": "栃木県那須郡那須町高久乙2730-25",
+      "location": {
+        "lat": 37.055519,
+        "lng": 140.014465
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=NASU%20SHOZO%20CAFE%20%E9%82%A3%E9%A0%88",
+      "photos": [
+        "photos/nasu2024/day2-02-shozo-cafe.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-07",
+      "time": "15:55",
+      "name": "Cafe facile",
+      "category": "食事",
+      "address": "栃木県那須郡那須町高久甲5462-1",
+      "location": {
+        "lat": 37.001896,
+        "lng": 140.059875
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Cafe%20facile%20%E9%82%A3%E9%A0%88",
+      "officialUrl": "https://cafe-facile.com/",
+      "photos": [
+        "photos/nasu2024/day2-03-cafe-facile.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-08",
+      "time": "12:00",
+      "name": "白牡丹（薬膳）",
+      "category": "食事",
+      "address": "栃木県那須塩原市高砂町6-9",
+      "location": {
+        "lat": 36.972149,
+        "lng": 140.050262
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%8A%E3%81%84%E3%81%97%E3%81%84%E8%96%AC%E8%86%B3%20%E7%99%BD%E7%89%A1%E4%B8%B9%20%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F"
+    },
+    {
+      "date": "2024-09-08",
+      "time": "14:08",
+      "name": "NONOWA CAFE",
+      "category": "食事",
+      "address": "栃木県那須郡那須町寺子乙257-1",
+      "location": {
+        "lat": 37.002014,
+        "lng": 140.110092
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=NONOWA%20CAFE%20%E9%82%A3%E9%A0%88",
+      "memo": "森の中の隠れ家カフェ。パフェ・スイーツ。",
+      "photos": [
+        "photos/nasu2024/day3-02-nonowa-cafe.jpg"
+      ]
+    },
+    {
+      "date": "2024-09-08",
+      "time": "14:49",
+      "name": "Iris bread & coffee",
+      "category": "食事",
+      "address": "栃木県那須塩原市本町5-2",
+      "location": {
+        "lat": 36.97002,
+        "lng": 140.058731
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Iris%20bread%20and%20coffee%20%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F",
+      "memo": "黒磯駅前のベーカリーカフェ。",
+      "photos": [
+        "photos/nasu2024/day3-03-iris-bread-coffee.jpg"
+      ]
+    }
+  ],
+  "photos": [
+    {
+      "path": "photos/nasu2024/day1-general-01.jpg",
+      "date": "2024-09-06",
+      "time": "12:47"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-02.jpg",
+      "date": "2024-09-06",
+      "time": "13:01"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-03.jpg",
+      "date": "2024-09-06",
+      "time": "13:05"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-04.jpg",
+      "date": "2024-09-06",
+      "time": "13:19"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-05.jpg",
+      "date": "2024-09-06",
+      "time": "13:19"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-06.jpg",
+      "date": "2024-09-06",
+      "time": "13:30"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-07.jpg",
+      "date": "2024-09-06",
+      "time": "13:44"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-08.jpg",
+      "date": "2024-09-06",
+      "time": "13:44"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-09.jpg",
+      "date": "2024-09-06",
+      "time": "14:13"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-10.jpg",
+      "date": "2024-09-06",
+      "time": "15:25"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-11.jpg",
+      "date": "2024-09-06",
+      "time": "15:25"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-12.jpg",
+      "date": "2024-09-06",
+      "time": "15:26"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-13.jpg",
+      "date": "2024-09-06",
+      "time": "19:57"
+    },
+    {
+      "path": "photos/nasu2024/day1-general-14.jpg",
+      "date": "2024-09-06",
+      "time": "19:59"
+    },
+    {
+      "path": "photos/nasu2024/day2-general-01.jpg",
+      "date": "2024-09-07",
+      "time": "12:10"
+    },
+    {
+      "path": "photos/nasu2024/day2-general-02.jpg",
+      "date": "2024-09-07"
+    },
+    {
+      "path": "photos/nasu2024/day2-general-03.jpg",
+      "date": "2024-09-07"
+    },
+    {
+      "path": "photos/nasu2024/day2-general-04.jpg",
+      "date": "2024-09-07",
+      "time": "16:23"
+    },
+    {
+      "path": "photos/nasu2024/day2-general-05.jpg",
+      "date": "2024-09-07",
+      "time": "16:23"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-01.jpg",
+      "date": "2024-09-08",
+      "time": "11:11"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-02.jpg",
+      "date": "2024-09-08",
+      "time": "12:00"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-03.jpg",
+      "date": "2024-09-08",
+      "time": "12:01"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-04.jpg",
+      "date": "2024-09-08",
+      "time": "12:18"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-05.jpg",
+      "date": "2024-09-08",
+      "time": "12:19"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-06.jpg",
+      "date": "2024-09-08",
+      "time": "13:09"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-07.jpg",
+      "date": "2024-09-08",
+      "time": "13:10"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-08.jpg",
+      "date": "2024-09-08",
+      "time": "13:11"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-09.jpg",
+      "date": "2024-09-08",
+      "time": "13:40"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-10.jpg",
+      "date": "2024-09-08",
+      "time": "13:41"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-11.jpg",
+      "date": "2024-09-08",
+      "time": "13:43"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-12.jpg",
+      "date": "2024-09-08",
+      "time": "13:45"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-13.jpg",
+      "date": "2024-09-08",
+      "time": "14:11"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-14.jpg",
+      "date": "2024-09-08",
+      "time": "14:50"
+    },
+    {
+      "path": "photos/nasu2024/day3-general-15.jpg",
+      "date": "2024-09-08",
+      "time": "15:06"
+    }
+  ]
+}

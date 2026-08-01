@@ -1,23 +1,61 @@
 import { useState, type FormEvent, type ReactNode } from "react";
-import { isUnlocked, setUnlocked, verifyPassword } from "../auth/sitePassword";
+import { deriveKey, decryptToJson } from "../crypto/decrypt";
+import { TripDataProvider } from "../data/TripDataContext";
+import type { Trip, TripSummary } from "../types/trip";
+
+const BASE = import.meta.env.BASE_URL;
+
+interface EncMeta {
+  salt: string;
+  iterations: number;
+}
+
+interface DecryptedPayload {
+  tripsIndex: TripSummary[];
+  trips: Record<string, Trip>;
+}
+
+interface UnlockedState {
+  data: DecryptedPayload;
+  imageKey: CryptoKey;
+}
 
 export default function PasswordGate({ children }: { children: ReactNode }) {
-  const [unlocked, setUnlockedState] = useState(isUnlocked());
+  const [unlocked, setUnlocked] = useState<UnlockedState | null>(null);
   const [input, setInput] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const ok = await verifyPassword(input);
-    if (ok) {
-      setUnlocked();
-      setUnlockedState(true);
-    } else {
+    setLoading(true);
+    setError(false);
+    try {
+      const metaRes = await fetch(`${BASE}enc-meta.json`);
+      const meta: EncMeta = await metaRes.json();
+
+      const key = await deriveKey(input, meta.salt, meta.iterations);
+
+      const dataRes = await fetch(`${BASE}data.enc`);
+      const buf = await dataRes.arrayBuffer();
+      const data = await decryptToJson<DecryptedPayload>(key, buf);
+
+      setUnlocked({ data, imageKey: key });
+    } catch {
+      // AES-GCMの認証タグ不一致（＝パスワード違い）を含め、失敗はすべて「パスワードが違います」として扱う
       setError(true);
+    } finally {
+      setLoading(false);
     }
   }
 
-  if (unlocked) return <>{children}</>;
+  if (unlocked) {
+    return (
+      <TripDataProvider data={unlocked.data} imageKey={unlocked.imageKey}>
+        {children}
+      </TripDataProvider>
+    );
+  }
 
   return (
     <div
@@ -69,6 +107,7 @@ export default function PasswordGate({ children }: { children: ReactNode }) {
         )}
         <button
           type="submit"
+          disabled={loading}
           style={{
             width: "100%",
             padding: "10px 12px",
@@ -77,10 +116,11 @@ export default function PasswordGate({ children }: { children: ReactNode }) {
             background: "var(--color-accent)",
             color: "#fff",
             fontSize: 15,
-            cursor: "pointer",
+            cursor: loading ? "default" : "pointer",
+            opacity: loading ? 0.7 : 1,
           }}
         >
-          入る
+          {loading ? "復号中..." : "入る"}
         </button>
       </form>
     </div>

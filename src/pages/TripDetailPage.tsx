@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getTrip, getTripDurationLabel } from "../data/trips";
+import { useTripData, getTripDurationLabel } from "../data/TripDataContext";
+import EncryptedImage from "../components/EncryptedImage";
 import ScheduleTimeline from "./sections/ScheduleTimeline";
 import TripMap from "./sections/TripMap";
 import Album from "./sections/Album";
-
-const BASE = import.meta.env.BASE_URL;
 
 type Tab = "schedule" | "map" | "album";
 
 export default function TripDetailPage() {
   const { tripId } = useParams();
+  const { getTrip } = useTripData();
   const trip = tripId ? getTrip(tripId) : undefined;
   const [tab, setTab] = useState<Tab>("schedule");
 
@@ -39,8 +39,8 @@ export default function TripDetailPage() {
           boxShadow: "var(--shadow-card)",
         }}
       >
-        <img
-          src={BASE + trip.coverPhoto}
+        <EncryptedImage
+          path={trip.coverPhoto}
           alt={trip.name}
           style={{ width: "100%", maxHeight: 360, objectFit: "cover" }}
         />

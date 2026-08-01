@@ -1,6 +1,5 @@
 import type { Trip, ScheduleItem } from "../../types/trip";
-
-const BASE = import.meta.env.BASE_URL;
+import EncryptedImage from "../../components/EncryptedImage";
 
 function groupByDate(trip: Trip): [string, ScheduleItem[]][] {
   const map = new Map<string, ScheduleItem[]>();
@@ -59,9 +58,9 @@ export default function ScheduleTimeline({ trip }: { trip: Trip }) {
                     {item.photos && item.photos.length > 0 && (
                       <div style={{ display: "flex", gap: 8, marginBottom: 8, overflowX: "auto" }}>
                         {item.photos.map((p) => (
-                          <img
+                          <EncryptedImage
                             key={p}
-                            src={BASE + p}
+                            path={p}
                             alt={item.name}
                             style={{ width: 96, height: 72, objectFit: "cover", borderRadius: 8, flexShrink: 0 }}
                           />

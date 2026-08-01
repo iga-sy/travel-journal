@@ -18,6 +18,12 @@ export interface ScheduleItem {
   memo?: string;
 }
 
+export interface AlbumOnlyPhoto {
+  path: string;
+  date: string; // YYYY-MM-DD
+  time?: string; // HH:mm
+}
+
 export interface Trip {
   id: string;
   name: string;
@@ -27,6 +33,7 @@ export interface Trip {
   coverPhoto: string;
   memo?: string;
   schedule: ScheduleItem[];
+  photos?: AlbumOnlyPhoto[];
 }
 
 export interface TripSummary {

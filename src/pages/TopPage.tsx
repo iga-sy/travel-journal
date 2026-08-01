@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getTripSummaries } from "../data/trips";
+import { useTripData } from "../data/TripDataContext";
 import CardView from "./views/CardView";
 import CalendarView from "./views/CalendarView";
 import MapView from "./views/MapView";
@@ -8,7 +8,7 @@ type ViewMode = "card" | "calendar" | "map";
 
 export default function TopPage() {
   const [mode, setMode] = useState<ViewMode>("card");
-  const trips = getTripSummaries();
+  const { tripsIndex: trips } = useTripData();
 
   return (
     <main className="container" style={{ paddingTop: 32, paddingBottom: 64 }}>

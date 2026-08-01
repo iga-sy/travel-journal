@@ -4,3 +4,8 @@ dist-ssr
 *.local
 *.tsbuildinfo
 .DS_Store
+
+# ビルド時に生成される暗号化済みファイル（コミットしない）
+public/data.enc
+public/enc-meta.json
+public/photos-enc/

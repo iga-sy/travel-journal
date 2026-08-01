@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import type { TripSummary } from "../types/trip";
-import { getTripDurationLabel } from "../data/trips";
-
-const BASE = import.meta.env.BASE_URL;
+import { getTripDurationLabel } from "../data/TripDataContext";
+import EncryptedImage from "./EncryptedImage";
 
 export default function TripCard({ trip }: { trip: TripSummary }) {
   return (
@@ -12,8 +11,8 @@ export default function TripCard({ trip }: { trip: TripSummary }) {
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
     >
       <div style={{ aspectRatio: "3 / 2", overflow: "hidden" }}>
-        <img
-          src={BASE + trip.coverPhoto}
+        <EncryptedImage
+          path={trip.coverPhoto}
           alt={trip.name}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />

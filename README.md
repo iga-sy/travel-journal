@@ -3,11 +3,21 @@
 複数の旅行を「しおり（旅行前）」「アルバム（旅行後）」として一元管理する、個人用の旅行記録Webアプリです。
 React + Vite + TypeScript + Leaflet で構築し、GitHub Pagesで無料公開する前提の構成になっています。
 
+## ⚠️ このリポジトリは必ずPrivateにすること
+
+旅行データ（`src/data/trips*`）と写真原本（`assets-source/photos/`）は、Gitリポジトリの中には**平文のまま**入っています（暗号化されるのはビルド後にGitHub Pagesへ公開される成果物だけ）。リポジトリをPublicにすると、写真や旅程がリポジトリ画面からそのまま見えてしまい、下記の暗号化の意味がなくなります。個人アカウントのPrivateリポジトリは無料枠内で作成できます。
+
 ## 開発
+
+初回のみ、`.env.local` に以下を作成してください（Gitにはコミットされません）。
+
+```
+SITE_PASSWORD=サイトの閲覧パスワード
+```
 
 ```bash
 npm install
-npm run dev      # 開発サーバー起動
+npm run dev      # 開発サーバー起動（起動前に自動でデータ・写真を暗号化）
 npm run build    # 本番ビルド（GitHub Pagesにはこのdist/を公開）
 npm run preview  # ビルド結果をローカルで確認
 ```
@@ -21,7 +31,7 @@ Claude Codeが内容を解析し、以下を自動で行います。
 
 1. `src/data/trips/<tripId>.json` の作成・更新
 2. `src/data/trips-index.json` への一覧用サマリ追加
-3. `public/photos/<tripId>/` への写真配置（受け取った写真がある場合）
+3. `assets-source/photos/<tripId>/` への写真配置（HEIC等はJPEGに変換し、Exifの日時から時刻を推定）
 
 JSONを直接編集する必要はありません。Excelファイルを渡してもらっても構いません（下記の方法2でも取り込めます）。
 
@@ -33,7 +43,7 @@ JSONを直接編集する必要はありません。Excelファイルを渡し�
 - `schedule`シート：ヘッダー行 `date,time,name,category,address,lat,lng,googleMapsUrl,officialUrl,photos,memo`
 
 ```bash
-npm run import:excel -- ./schedule.xlsx hokkaido2026
+npm run import:excel -- ./schedule.xlsx <tripId>
 ```
 
 実行後、`src/data/trips-index.json` に一覧用サマリを手動または依頼して追記してください。
@@ -42,28 +52,38 @@ npm run import:excel -- ./schedule.xlsx hokkaido2026
 
 ```
 src/data/
-├── trips-index.json      # トップページ（カード/カレンダー/地図）用の軽量サマリ一覧
+├── trips-index.json           # トップページ（カード/カレンダー/地図）用の軽量サマリ一覧
 └── trips/
-    └── <tripId>.json     # 旅行ごとの詳細（概要＋スケジュール配列）
+    └── <tripId>.json          # 旅行ごとの詳細（概要＋スケジュール＋一般アルバム写真）
 
-public/photos/<tripId>/   # 実際の写真ファイル
+assets-source/photos/<tripId>/ # 写真原本（暗号化前。Gitには平文のまま入る＝リポジトリは必ずPrivate）
 ```
 
 `trips/*.json` は追加するだけで自動的にアプリへ反映されます（コード側の変更は不要）。
 
-## サイトのパスワード保護
+## サイトの暗号化・パスワード保護
 
-トップに簡易パスワード画面（`src/components/PasswordGate.tsx`）を設置しています。**これは見た目のガードであり、本格的なアクセス制御ではありません**。サイトの静的ファイル（写真を含む）自体は誰でもURLを直接知っていれば取得できてしまう点に注意してください。
+`npm run dev` / `npm run build` の前に、`scripts/encrypt-data.mjs` が自動的に実行されます。このスクリプトが行うこと：
 
-パスワードを変更する場合は、以下でハッシュを再生成し `src/auth/sitePassword.ts` の `PASSWORD_HASH` を書き換えます。
+1. `SITE_PASSWORD` からPBKDF2（60万回）で鍵を導出
+2. 旅行データ（`trips-index.json` + `trips/*.json`）をAES-GCMで暗号化 → `public/data.enc`
+3. `assets-source/photos/` 配下の写真を1枚ずつAES-GCMで暗号化 → `public/photos-enc/**.enc`
+4. 鍵導出に使うsalt・iterations（秘密情報ではない）を `public/enc-meta.json` に出力
 
-```bash
-node -e "console.log(require('crypto').createHash('sha256').update('新しいパスワード','utf8').digest('hex'))"
-```
+`public/data.enc` / `public/photos-enc/` / `public/enc-meta.json` はビルド成果物なのでGitにはコミットしません（`.gitignore`済み）。
 
-一度パスワードを通過すると、その端末のブラウザに解除状態が保存され（`localStorage`）、次回以降は再入力不要になります。
+サイトを開くとパスワード入力画面が表示され、入力されたパスワードでその場で復号を試みます。**パスワードが正しいかどうかは判定していません**。AES-GCMの認証タグが一致すれば復号成功＝正しいパスワード、一致しなければ復号が失敗し「パスワードが違います」と表示されます。正しいパスワードを知らない人には、旅行データも写真も一切読めません。
+
+復号済みの内容はブラウザのメモリ（Reactの状態）にのみ保持され、`localStorage`等には残しません。ページをリロードしたりタブを閉じたりすると、再度パスワード入力が必要になります。
+
+### パスワードを変更する
+
+1. `.env.local` の `SITE_PASSWORD` を書き換える
+2. GitHub Actionsでデプロイしている場合は、リポジトリの Settings > Secrets and variables > Actions で `SITE_PASSWORD` を同じ値に更新する
 
 ## GitHub Pagesへの公開
 
-`main`ブランチにpushすると `.github/workflows/deploy.yml` が自動でビルド・公開します。
-リポジトリの Settings > Pages で Source を「GitHub Actions」に設定してください。
+1. リポジトリを**Private**で作成する
+2. リポジトリの Settings > Secrets and variables > Actions で `SITE_PASSWORD`（`.env.local`と同じ値）を登録する
+3. リポジトリの Settings > Pages で Source を「GitHub Actions」に設定する
+4. `main`ブランチにpushすると `.github/workflows/deploy.yml` が自動でビルド・公開する

@@ -1,0 +1,303 @@
+[
+  {
+    "srcFile": "IMG_7213.HEIC",
+    "outName": "day1-general-01.jpg",
+    "date": "2024-09-06",
+    "time": "12:47",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7214.HEIC",
+    "outName": "day1-02-ncacao.jpg",
+    "date": "2024-09-06",
+    "time": "12:51",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7218.HEIC",
+    "outName": "day1-general-02.jpg",
+    "date": "2024-09-06",
+    "time": "13:01",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7222.HEIC",
+    "outName": "day1-general-03.jpg",
+    "date": "2024-09-06",
+    "time": "13:05",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7223.HEIC",
+    "outName": "day1-general-04.jpg",
+    "date": "2024-09-06",
+    "time": "13:19",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7224.HEIC",
+    "outName": "day1-general-05.jpg",
+    "date": "2024-09-06",
+    "time": "13:19",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7225.HEIC",
+    "outName": "day1-general-06.jpg",
+    "date": "2024-09-06",
+    "time": "13:30",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7230.HEIC",
+    "outName": "day1-general-07.jpg",
+    "date": "2024-09-06",
+    "time": "13:44",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7231.HEIC",
+    "outName": "day1-03-usaburo.jpg",
+    "date": "2024-09-06",
+    "time": "13:44",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7233.HEIC",
+    "outName": "day1-general-08.jpg",
+    "date": "2024-09-06",
+    "time": "13:44",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7235.HEIC",
+    "outName": "day1-general-09.jpg",
+    "date": "2024-09-06",
+    "time": "14:13",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7242.HEIC",
+    "outName": "day1-04-nasudake.jpg",
+    "date": "2024-09-06",
+    "time": "15:18",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7243.HEIC",
+    "outName": "day1-general-10.jpg",
+    "date": "2024-09-06",
+    "time": "15:25",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7245.HEIC",
+    "outName": "day1-general-11.jpg",
+    "date": "2024-09-06",
+    "time": "15:25",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7246.HEIC",
+    "outName": "day1-general-12.jpg",
+    "date": "2024-09-06",
+    "time": "15:26",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7255.HEIC",
+    "outName": "day1-06-hotel-dinner.jpg",
+    "date": "2024-09-06",
+    "time": "19:45",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7257.HEIC",
+    "outName": "day1-general-13.jpg",
+    "date": "2024-09-06",
+    "time": "19:57",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7258.HEIC",
+    "outName": "day1-general-14.jpg",
+    "date": "2024-09-06",
+    "time": "19:59",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7272.HEIC",
+    "outName": "day2-general-01.jpg",
+    "date": "2024-09-07",
+    "time": "12:10",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7276.JPG",
+    "outName": "day2-general-02.jpg",
+    "date": "2024-09-07",
+    "time": null,
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7277.JPG",
+    "outName": "day2-01-kashiwaya.jpg",
+    "date": "2024-09-07",
+    "time": null,
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7278.JPG",
+    "outName": "day2-general-03.jpg",
+    "date": "2024-09-07",
+    "time": null,
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7282.HEIC",
+    "outName": "day2-02-shozo-cafe.jpg",
+    "date": "2024-09-07",
+    "time": "14:09",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7289.HEIC",
+    "outName": "day2-03-cafe-facile.jpg",
+    "date": "2024-09-07",
+    "time": "15:55",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7292.HEIC",
+    "outName": "day2-general-04.jpg",
+    "date": "2024-09-07",
+    "time": "16:23",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7294.HEIC",
+    "outName": "day2-general-05.jpg",
+    "date": "2024-09-07",
+    "time": "16:23",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7302.HEIC",
+    "outName": "day3-general-01.jpg",
+    "date": "2024-09-08",
+    "time": "11:11",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7310.HEIC",
+    "outName": "day3-general-02.jpg",
+    "date": "2024-09-08",
+    "time": "12:00",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7312.HEIC",
+    "outName": "day3-general-03.jpg",
+    "date": "2024-09-08",
+    "time": "12:01",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7314.HEIC",
+    "outName": "day3-general-04.jpg",
+    "date": "2024-09-08",
+    "time": "12:18",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7319.HEIC",
+    "outName": "day3-general-05.jpg",
+    "date": "2024-09-08",
+    "time": "12:19",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7323.HEIC",
+    "outName": "day3-general-06.jpg",
+    "date": "2024-09-08",
+    "time": "13:09",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7325.HEIC",
+    "outName": "day3-general-07.jpg",
+    "date": "2024-09-08",
+    "time": "13:10",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7328.HEIC",
+    "outName": "day3-general-08.jpg",
+    "date": "2024-09-08",
+    "time": "13:11",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7329.HEIC",
+    "outName": "day3-general-09.jpg",
+    "date": "2024-09-08",
+    "time": "13:40",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7332.HEIC",
+    "outName": "day3-general-10.jpg",
+    "date": "2024-09-08",
+    "time": "13:41",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7333.HEIC",
+    "outName": "day3-general-11.jpg",
+    "date": "2024-09-08",
+    "time": "13:43",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7335.HEIC",
+    "outName": "day3-general-12.jpg",
+    "date": "2024-09-08",
+    "time": "13:45",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7338.JPG",
+    "outName": "day3-02-nonowa-cafe.jpg",
+    "date": "2024-09-08",
+    "time": "14:08",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7341.HEIC",
+    "outName": "day3-general-13.jpg",
+    "date": "2024-09-08",
+    "time": "14:11",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7343.HEIC",
+    "outName": "day3-03-iris-bread-coffee.jpg",
+    "date": "2024-09-08",
+    "time": "14:49",
+    "isScheduleShot": true
+  },
+  {
+    "srcFile": "IMG_7344.HEIC",
+    "outName": "day3-general-14.jpg",
+    "date": "2024-09-08",
+    "time": "14:50",
+    "isScheduleShot": false
+  },
+  {
+    "srcFile": "IMG_7346.JPG",
+    "outName": "day3-general-15.jpg",
+    "date": "2024-09-08",
+    "time": "15:06",
+    "isScheduleShot": false
+  }
+]

@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import type { Trip } from "../../types/trip";
+import EncryptedImage from "../../components/EncryptedImage";
 
-const BASE = import.meta.env.BASE_URL;
 const JAPAN_CENTER: [number, number] = [36.2048, 138.2529];
 
 export default function TripMap({ trip }: { trip: Trip }) {
@@ -30,8 +30,8 @@ export default function TripMap({ trip }: { trip: Trip }) {
                   {item.date} {item.time}
                 </p>
                 {item.photos && item.photos[0] && (
-                  <img
-                    src={BASE + item.photos[0]}
+                  <EncryptedImage
+                    path={item.photos[0]}
                     alt={item.name}
                     style={{ width: "100%", borderRadius: 8, marginBottom: 4 }}
                   />

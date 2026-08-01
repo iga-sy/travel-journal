@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
 import type { Trip } from "../../types/trip";
-
-const BASE = import.meta.env.BASE_URL;
+import EncryptedImage from "../../components/EncryptedImage";
 
 interface AlbumPhoto {
   src: string;
   date: string;
-  place: string;
+  place?: string;
   memo?: string;
 }
 
@@ -16,6 +15,9 @@ function collectPhotos(trip: Trip): AlbumPhoto[] {
     for (const p of item.photos ?? []) {
       photos.push({ src: p, date: item.date, place: item.name, memo: item.memo });
     }
+  }
+  for (const p of trip.photos ?? []) {
+    photos.push({ src: p.path, date: p.date });
   }
   return photos;
 }
@@ -32,7 +34,7 @@ export default function Album({ trip }: { trip: Trip }) {
     if (sortMode === "date") {
       copy.sort((a, b) => a.date.localeCompare(b.date));
     } else {
-      copy.sort((a, b) => a.place.localeCompare(b.place, "ja"));
+      copy.sort((a, b) => (a.place ?? "").localeCompare(b.place ?? "", "ja"));
     }
     return copy;
   }, [photos, sortMode]);
@@ -70,9 +72,9 @@ export default function Album({ trip }: { trip: Trip }) {
             onClick={() => setSelected(photo)}
             style={{ padding: 0, border: "none", background: "none", cursor: "pointer", borderRadius: 8, overflow: "hidden" }}
           >
-            <img
-              src={BASE + photo.src}
-              alt={photo.place}
+            <EncryptedImage
+              path={photo.src}
+              alt={photo.place ?? photo.date}
               style={{ width: "100%", aspectRatio: "4 / 3", objectFit: "cover" }}
             />
           </button>
@@ -103,13 +105,13 @@ export default function Album({ trip }: { trip: Trip }) {
               width: "100%",
             }}
           >
-            <img
-              src={BASE + selected.src}
-              alt={selected.place}
+            <EncryptedImage
+              path={selected.src}
+              alt={selected.place ?? selected.date}
               style={{ width: "100%", maxHeight: 420, objectFit: "cover" }}
             />
             <div style={{ padding: 16 }}>
-              <strong>{selected.place}</strong>
+              {selected.place && <strong>{selected.place}</strong>}
               <p style={{ margin: "4px 0", fontSize: 13, color: "var(--color-ink-soft)" }}>{selected.date}</p>
               {selected.memo && <p style={{ margin: 0, fontSize: 14 }}>{selected.memo}</p>}
               <button
