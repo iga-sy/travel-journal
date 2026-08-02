@@ -39,7 +39,7 @@ export default function MapView({ trips }: { trips: TripSummary[] }) {
                     padding: 0,
                   }}
                 >
-                  詳細を見る ▶
+                  Show details ▶
                 </button>
               </div>
             </Popup>

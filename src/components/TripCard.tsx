@@ -44,7 +44,7 @@ export default function TripCard({ trip }: { trip: TripSummary }) {
         </p>
         {trip.comment && <p style={{ margin: 0, fontSize: 14 }}>{trip.comment}</p>}
         <span style={{ display: "inline-block", marginTop: 12, color: "var(--color-accent)", fontSize: 14 }}>
-          ▶ 詳細を見る
+          ▶ Show details
         </span>
       </div>
     </Link>
