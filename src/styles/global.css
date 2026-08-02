@@ -145,27 +145,6 @@ img {
   max-width: 240px;
 }
 
-/* 旅程横のメモ（チャット投稿風コメント） */
-.comment-entry {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  font-size: 13px;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--color-line);
-}
-
-.comment-author {
-  font-weight: 600;
-  color: var(--color-ink);
-  flex-shrink: 0;
-}
-
-.comment-text {
-  color: var(--color-ink-soft);
-  word-break: break-word;
-}
-
 /* 旅程の各項目：ドット＋縦ラインでつなぐタイムライン表現 */
 .timeline-entry {
   display: flex;

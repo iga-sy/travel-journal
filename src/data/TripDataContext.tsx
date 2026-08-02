@@ -10,6 +10,7 @@ interface TripDataValue {
   tripsIndex: TripSummary[];
   getTrip: (id: string) => Trip | undefined;
   updateTrip: (trip: Trip) => void;
+  addTrip: (trip: Trip, summary: TripSummary) => void;
   imageKey: CryptoKey;
 }
 
@@ -35,6 +36,10 @@ export function TripDataProvider({
       setTripsIndex((prev) =>
         prev.map((t) => (t.id === trip.id && t.coverPhoto !== trip.coverPhoto ? { ...t, coverPhoto: trip.coverPhoto } : t)),
       );
+    },
+    addTrip: (trip, summary) => {
+      setTrips((prev) => ({ ...prev, [trip.id]: trip }));
+      setTripsIndex((prev) => [...prev, summary]);
     },
     imageKey,
   };

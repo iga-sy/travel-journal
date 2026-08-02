@@ -42,6 +42,7 @@ export interface Trip {
   schedule: ScheduleItem[];
   photos?: AlbumOnlyPhoto[];
   comments?: TripComment[];
+  photoCrops?: Record<string, { x: number; y: number }>;
 }
 
 export interface TripSummary {

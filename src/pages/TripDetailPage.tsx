@@ -65,8 +65,10 @@ export default function TripDetailPage() {
 
   function addItem(date: string) {
     mutateDraft((prev) => ({
+      // 時刻未入力の新規項目は一覧の一番下に出したいので、その日の中で最後の時刻にしておく。
+      // 実際の時刻を入力すれば、表示は時系列順に並び直る。
       ...prev,
-      schedule: [...prev.schedule, { date, time: "12:00", name: "新しい予定", category: "観光" }],
+      schedule: [...prev.schedule, { date, time: "23:45", name: "新しい予定", category: "観光" }],
     }));
   }
 
@@ -78,24 +80,39 @@ export default function TripDetailPage() {
     mutateDraft((prev) => ({ ...prev, coverPhoto: path }));
   }
 
-  function addComment(author: string, text: string) {
-    mutateDraft((prev) => ({
-      ...prev,
-      comments: [...(prev.comments ?? []), { id: crypto.randomUUID(), author, text }],
-    }));
+  function addPhoto(path: string, date: string, time: string) {
+    mutateDraft((prev) => ({ ...prev, photos: [...(prev.photos ?? []), { path, date, time }] }));
   }
 
-  function removeComment(id: string) {
-    mutateDraft((prev) => ({ ...prev, comments: (prev.comments ?? []).filter((c) => c.id !== id) }));
+  function removePhoto(photo: { src: string; scheduleIndex?: number }) {
+    mutateDraft((prev) => {
+      if (photo.scheduleIndex !== undefined) {
+        const schedule = prev.schedule.slice();
+        const item = schedule[photo.scheduleIndex];
+        schedule[photo.scheduleIndex] = {
+          ...item,
+          photos: (item.photos ?? []).filter((p) => p !== photo.src),
+        };
+        return { ...prev, schedule };
+      }
+      return { ...prev, photos: (prev.photos ?? []).filter((p) => p.path !== photo.src) };
+    });
+  }
+
+  function setCrop(path: string, crop: { x: number; y: number }) {
+    mutateDraft((prev) => ({ ...prev, photoCrops: { ...prev.photoCrops, [path]: crop } }));
   }
 
   async function handleSave() {
-    if (!draft) return;
+    if (!draft || !trip) return;
     setSaving(true);
     setSaveMessage(null);
     try {
-      await saveTrip(draft);
-      updateTrip(draft);
+      // メモ（チャット）は編集モードと独立して即時保存されるため、
+      // ここでは常に最新のtrip.commentsを使い、古いdraftで上書きしないようにする。
+      const toSave = { ...draft, comments: trip.comments };
+      await saveTrip(toSave);
+      updateTrip(toSave);
       setSaveMessage("保存しました");
       setIsEditing(false);
       setDraft(null);
@@ -141,7 +158,7 @@ export default function TripDetailPage() {
                 opacity: saving ? 0.7 : 1,
               }}
             >
-              {saving ? "保存中..." : "保存"}
+              {saving ? "Saving..." : "Save"}
             </button>
             <button
               onClick={cancelEditing}
@@ -155,7 +172,7 @@ export default function TripDetailPage() {
                 cursor: "pointer",
               }}
             >
-              キャンセル
+              Cancel
             </button>
           </>
         )}
@@ -167,7 +184,7 @@ export default function TripDetailPage() {
   return (
     <main className="container" style={{ paddingTop: 32, paddingBottom: 64 }}>
       <Link to="/" style={{ fontSize: 14, color: "var(--color-ink-soft)", textDecoration: "none" }}>
-        ← 旅行一覧に戻る
+        ← Travel Archive
       </Link>
 
       <div
@@ -193,17 +210,32 @@ export default function TripDetailPage() {
       </p>
       <p style={{ margin: "0 0 16px" }}>{displayed.regions.join(" ・ ")}</p>
 
-      {isEditing ? (
-        <textarea
-          className="field-input"
-          value={draft?.memo ?? ""}
-          onChange={(e) => changeMemo(e.target.value)}
-          rows={2}
-          placeholder="旅行の概要"
-          style={{ marginBottom: 16 }}
-        />
-      ) : (
-        displayed.memo && <p style={{ margin: "0 0 16px", color: "var(--color-ink-soft)" }}>{displayed.memo}</p>
+      {(isEditing || displayed.memo) && (
+        <div
+          style={{
+            background: "rgba(255, 255, 255, 0.55)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            borderRadius: "var(--radius-md)",
+            border: "1px solid rgba(255, 255, 255, 0.6)",
+            boxShadow: "var(--shadow-card)",
+            padding: "14px 18px",
+            marginBottom: 16,
+          }}
+        >
+          {isEditing ? (
+            <textarea
+              className="field-input"
+              value={draft?.memo ?? ""}
+              onChange={(e) => changeMemo(e.target.value)}
+              rows={2}
+              placeholder="旅行の概要"
+              style={{ background: "transparent" }}
+            />
+          ) : (
+            <p style={{ margin: 0, color: "var(--color-ink-soft)" }}>{displayed.memo}</p>
+          )}
+        </div>
       )}
 
       {renderEditControls()}
@@ -220,17 +252,18 @@ export default function TripDetailPage() {
               onChangeItem={changeItem}
               onRemoveItem={removeItem}
               onAddItem={addItem}
+              onSetCrop={setCrop}
             />
           </div>
           <div style={{ flex: "1 1 220px", minWidth: 220 }}>
-            <TripComments
-              comments={displayed.comments ?? []}
-              isEditing={isEditing}
-              onAdd={addComment}
-              onRemove={removeComment}
-            />
+            <TripComments trip={trip} />
           </div>
         </div>
+        {isEditing && (
+          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+            {renderEditControls()}
+          </div>
+        )}
       </section>
 
       <section style={{ marginBottom: 40 }}>
@@ -238,7 +271,14 @@ export default function TripDetailPage() {
           Album
         </h2>
         {renderEditControls()}
-        <Album trip={displayed} isEditing={isEditing} onSetCover={setCover} />
+        <Album
+          trip={displayed}
+          isEditing={isEditing}
+          onSetCover={setCover}
+          onAddPhoto={addPhoto}
+          onRemovePhoto={removePhoto}
+          onSetCrop={setCrop}
+        />
       </section>
 
       <section style={{ marginTop: 40 }}>

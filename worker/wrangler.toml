@@ -1,0 +1,9 @@
+name = "travel-journal-editor"
+main = "src/index.ts"
+compatibility_date = "2026-08-02"
+
+[vars]
+GITHUB_OWNER = "iga-sy"
+GITHUB_REPO = "travel-journal"
+GITHUB_BRANCH = "main"
+ALLOWED_ORIGIN = "https://iga-sy.github.io"

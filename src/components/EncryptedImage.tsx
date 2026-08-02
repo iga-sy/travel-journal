@@ -18,6 +18,7 @@ export default function EncryptedImage({ path, style, ...rest }: EncryptedImageP
   const [src, setSrc] = useState<string | null>(blobUrlCache.get(path) ?? null);
 
   useEffect(() => {
+    if (!path) return;
     if (blobUrlCache.has(path)) {
       setSrc(blobUrlCache.get(path)!);
       return;
@@ -36,8 +37,8 @@ export default function EncryptedImage({ path, style, ...rest }: EncryptedImageP
     };
   }, [path, imageKey]);
 
-  if (!src) {
-    return <div style={{ ...style, background: "var(--color-line)" }} aria-label="読み込み中" />;
+  if (!path || !src) {
+    return <div style={{ ...style, background: "var(--color-line)" }} aria-label={path ? "読み込み中" : "写真未設定"} />;
   }
   return <img src={src} style={style} {...rest} />;
 }

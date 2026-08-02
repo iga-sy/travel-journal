@@ -1,6 +1,10 @@
+import { useState } from "react";
 import type { Trip, ScheduleItem, ScheduleCategory } from "../../types/trip";
 import EncryptedImage from "../../components/EncryptedImage";
-import { MapPinIcon, GlobeIcon, InstagramIcon } from "../../components/icons";
+import CropPicker from "../../components/CropPicker";
+import { MapPinIcon, GlobeIcon, InstagramIcon, CropIcon } from "../../components/icons";
+import { objectPositionFor } from "../../data/photoCrop";
+import { timeOptionsWithCurrent, roundToNearestSlot } from "../../data/timeOptions";
 
 const CATEGORIES: ScheduleCategory[] = ["食事", "カフェ", "観光", "移動", "宿泊"];
 
@@ -24,10 +28,35 @@ interface ScheduleTimelineProps {
   onChangeItem?: (index: number, patch: Partial<ScheduleItem>) => void;
   onRemoveItem?: (index: number) => void;
   onAddItem?: (date: string) => void;
+  onSetCrop?: (path: string, crop: { x: number; y: number }) => void;
 }
 
-export default function ScheduleTimeline({ trip, isEditing, onChangeItem, onRemoveItem, onAddItem }: ScheduleTimelineProps) {
+export default function ScheduleTimeline({
+  trip,
+  isEditing,
+  onChangeItem,
+  onRemoveItem,
+  onAddItem,
+  onSetCrop,
+}: ScheduleTimelineProps) {
   const groups = groupByDate(trip);
+  const [pickerIndex, setPickerIndex] = useState<number | null>(null);
+  const [cropTarget, setCropTarget] = useState<string | null>(null);
+  const albumPhotos = trip.photos ?? [];
+
+  function addPhoto(index: number, path: string) {
+    const current = trip.schedule[index].photos ?? [];
+    if (current.includes(path)) return;
+    // 最初の1枚を付けるときは、その写真の撮影時刻を予定の時刻として提案する。
+    const photo = current.length === 0 ? albumPhotos.find((p) => p.path === path) : undefined;
+    const inferredTime = photo?.time ? roundToNearestSlot(photo.time) : undefined;
+    onChangeItem?.(index, { photos: [...current, path], ...(inferredTime ? { time: inferredTime } : {}) });
+  }
+
+  function removePhoto(index: number, path: string) {
+    const current = trip.schedule[index].photos ?? [];
+    onChangeItem?.(index, { photos: current.filter((p) => p !== path) });
+  }
 
   if (groups.length === 0) {
     return <p style={{ color: "var(--color-ink-soft)" }}>スケジュールがまだ登録されていません。</p>;
@@ -53,13 +82,18 @@ export default function ScheduleTimeline({ trip, isEditing, onChangeItem, onRemo
                     {isEditing ? (
                       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                          <input
+                          <select
                             className="field-input"
                             style={{ width: 96 }}
-                            type="time"
                             value={item.time}
                             onChange={(e) => onChangeItem?.(index, { time: e.target.value })}
-                          />
+                          >
+                            {timeOptionsWithCurrent(item.time).map((t) => (
+                              <option key={t} value={t}>
+                                {t}
+                              </option>
+                            ))}
+                          </select>
                           <select
                             className="field-input"
                             style={{ width: "auto" }}
@@ -97,15 +131,128 @@ export default function ScheduleTimeline({ trip, isEditing, onChangeItem, onRemo
                         {item.photos && item.photos.length > 0 && (
                           <div style={{ display: "flex", gap: 8, overflowX: "auto" }}>
                             {item.photos.map((p) => (
-                              <EncryptedImage
-                                key={p}
-                                path={p}
-                                alt={item.name}
-                                style={{ width: "100%", maxWidth: 130, aspectRatio: "1 / 1", objectFit: "cover", borderRadius: 10, flexShrink: 0 }}
-                              />
+                              <div key={p} style={{ position: "relative", flexShrink: 0 }}>
+                                <EncryptedImage
+                                  path={p}
+                                  alt={item.name}
+                                  style={{
+                                    width: 130,
+                                    maxWidth: 130,
+                                    aspectRatio: "1 / 1",
+                                    objectFit: "cover",
+                                    objectPosition: objectPositionFor(trip, p),
+                                    borderRadius: 10,
+                                  }}
+                                />
+                                <button
+                                  onClick={() => removePhoto(index, p)}
+                                  aria-label="写真を外す"
+                                  style={{
+                                    position: "absolute",
+                                    top: 4,
+                                    right: 4,
+                                    width: 20,
+                                    height: 20,
+                                    borderRadius: "50%",
+                                    border: "none",
+                                    background: "rgba(0,0,0,0.6)",
+                                    color: "#fff",
+                                    fontSize: 11,
+                                    lineHeight: 1,
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  ✕
+                                </button>
+                                <button
+                                  onClick={() => setCropTarget(p)}
+                                  aria-label="表示位置を調整"
+                                  title="表示位置を調整"
+                                  style={{
+                                    position: "absolute",
+                                    bottom: 4,
+                                    right: 4,
+                                    width: 20,
+                                    height: 20,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    borderRadius: "50%",
+                                    border: "none",
+                                    background: "rgba(0,0,0,0.6)",
+                                    color: "#fff",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <CropIcon size={11} />
+                                </button>
+                              </div>
                             ))}
                           </div>
                         )}
+                        <div>
+                          <button
+                            onClick={() => setPickerIndex(pickerIndex === index ? null : index)}
+                            style={{
+                              fontSize: 12,
+                              padding: "4px 10px",
+                              borderRadius: 999,
+                              border: "1px dashed var(--color-line)",
+                              background: "transparent",
+                              color: "var(--color-ink-soft)",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {pickerIndex === index ? "閉じる" : "＋ 写真を追加"}
+                          </button>
+                          {pickerIndex === index && (
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: 6,
+                                overflowX: "auto",
+                                marginTop: 8,
+                                padding: 8,
+                                border: "1px solid var(--color-line)",
+                                borderRadius: 10,
+                              }}
+                            >
+                              {albumPhotos.filter((p) => p.date === item.date).length === 0 && (
+                                <p style={{ fontSize: 12, color: "var(--color-ink-soft)", margin: 0 }}>
+                                  この日（{item.date}）に撮影された写真がありません。
+                                </p>
+                              )}
+                              {albumPhotos
+                                .filter((p) => p.date === item.date)
+                                .map((p) => {
+                                const attached = (item.photos ?? []).includes(p.path);
+                                return (
+                                  <button
+                                    key={p.path}
+                                    onClick={() => addPhoto(index, p.path)}
+                                    disabled={attached}
+                                    title={`${p.date} ${p.time ?? ""}`}
+                                    style={{
+                                      padding: 0,
+                                      border: attached ? "2px solid var(--color-accent)" : "none",
+                                      borderRadius: 8,
+                                      overflow: "hidden",
+                                      flexShrink: 0,
+                                      cursor: attached ? "default" : "pointer",
+                                      opacity: attached ? 0.5 : 1,
+                                    }}
+                                  >
+                                    <EncryptedImage
+                                      path={p.path}
+                                      alt={p.date}
+                                      style={{ width: 70, height: 70, objectFit: "cover" }}
+                                    />
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
                         <input
                           className="field-input"
                           value={item.address ?? ""}
@@ -150,7 +297,15 @@ export default function ScheduleTimeline({ trip, isEditing, onChangeItem, onRemo
                                 key={p}
                                 path={p}
                                 alt={item.name}
-                                style={{ width: "100%", maxWidth: 130, aspectRatio: "1 / 1", objectFit: "cover", borderRadius: 10, flexShrink: 0 }}
+                                style={{
+                                  width: "100%",
+                                  maxWidth: 130,
+                                  aspectRatio: "1 / 1",
+                                  objectFit: "cover",
+                                  objectPosition: objectPositionFor(trip, p),
+                                  borderRadius: 10,
+                                  flexShrink: 0,
+                                }}
                               />
                             ))}
                           </div>
@@ -204,13 +359,25 @@ export default function ScheduleTimeline({ trip, isEditing, onChangeItem, onRemo
                     cursor: "pointer",
                   }}
                 >
-                  ＋ 予定を追加
+                  + add schedule
                 </button>
               )}
             </div>
           </section>
         );
       })}
+
+      {cropTarget && (
+        <CropPicker
+          path={cropTarget}
+          initial={trip.photoCrops?.[cropTarget]}
+          onClose={() => setCropTarget(null)}
+          onSave={(crop) => {
+            onSetCrop?.(cropTarget, crop);
+            setCropTarget(null);
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -33,3 +33,20 @@ export function InstagramIcon({ size = 16, style }: IconProps) {
     </svg>
   );
 }
+
+export function SendIcon({ size = 16, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" style={style}>
+      <path d="M3 11.5 20.5 3l-6.2 17.5-3.4-7-7.9-2z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function CropIcon({ size = 16, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} style={style}>
+      <path d="M6 2v14a2 2 0 0 0 2 2h14" />
+      <path d="M18 22V8a2 2 0 0 0-2-2H2" />
+    </svg>
+  );
+}
