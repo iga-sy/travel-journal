@@ -48,5 +48,18 @@
       "lat": 37.08,
       "lng": 140.02
     }
+  },
+  {
+    "id": "zzz_worker_test",
+    "name": "worker動作確認用",
+    "startDate": "2026-01-01",
+    "endDate": "2026-01-02",
+    "regions": [],
+    "coverPhoto": "",
+    "photoCount": 0,
+    "location": {
+      "lat": 36.2048,
+      "lng": 138.2529
+    }
   }
 ]
