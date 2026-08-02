@@ -9,8 +9,6 @@ import SpotsMapView from "./views/SpotsMapView";
 
 type ViewMode = "card" | "calendar" | "map" | "spots";
 
-const isDev = import.meta.env.DEV;
-
 export default function TopPage() {
   const [mode, setMode] = useState<ViewMode>("card");
   const [showNewTrip, setShowNewTrip] = useState(false);
@@ -48,25 +46,23 @@ export default function TopPage() {
       {mode === "map" && <MapView trips={trips} />}
       {mode === "spots" && <SpotsMapView />}
 
-      {isDev && (
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
-          <button
-            onClick={() => setShowNewTrip(true)}
-            style={{
-              fontSize: 13,
-              padding: "8px 16px",
-              borderRadius: 999,
-              border: "none",
-              background: "var(--color-accent)",
-              color: "#fff",
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-            }}
-          >
-            + New Log
-          </button>
-        </div>
-      )}
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
+        <button
+          onClick={() => setShowNewTrip(true)}
+          style={{
+            fontSize: 13,
+            padding: "8px 16px",
+            borderRadius: 999,
+            border: "none",
+            background: "var(--color-accent)",
+            color: "#fff",
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+          }}
+        >
+          + New Log
+        </button>
+      </div>
 
       {showNewTrip && (
         <NewTripDialog

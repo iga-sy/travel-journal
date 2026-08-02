@@ -7,23 +7,7 @@ export interface Env {
   ALLOWED_ORIGIN: string;
 }
 
-interface TripComment {
-  id: string;
-  author: string;
-  text: string;
-}
-
-interface AlbumOnlyPhoto {
-  path: string;
-  date: string;
-  time?: string;
-}
-
-interface TripLike {
-  comments?: TripComment[];
-  photos?: AlbumOnlyPhoto[];
-  [key: string]: unknown;
-}
+const JAPAN_CENTER = { lat: 36.2048, lng: 138.2529 };
 
 function corsHeaders(env: Env): HeadersInit {
   return {
@@ -40,7 +24,10 @@ function jsonResponse(env: Env, body: unknown, status = 200): Response {
   });
 }
 
-function checkPassword(env: Env, password: string) {
+// パスワードは絵文字等の非ASCII文字を含みうるため、HTTPヘッダー（ByteString制約）ではなく
+// クエリパラメータ（URLエンコード済み）で受け取る。
+function checkPassword(env: Env, url: URL) {
+  const password = url.searchParams.get("password") ?? "";
   if (!password || password !== env.SITE_PASSWORD) {
     throw new Error("unauthorized");
   }
@@ -75,112 +62,141 @@ async function githubApi(env: Env, path: string, init?: RequestInit): Promise<Re
   });
 }
 
-async function getTripFile(env: Env, tripId: string): Promise<{ trip: TripLike; sha: string }> {
-  const res = await githubApi(env, `/contents/src/data/trips/${tripId}.json?ref=${env.GITHUB_BRANCH}`);
-  if (!res.ok) throw new Error(`旅行データが見つかりません (${res.status})`);
+async function getFile(env: Env, path: string): Promise<{ text: string; sha: string } | null> {
+  const res = await githubApi(env, `/contents/${path}?ref=${env.GITHUB_BRANCH}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`GitHubからの取得に失敗しました (${res.status})`);
   const data = (await res.json()) as { content: string; sha: string };
   const text = new TextDecoder("utf-8").decode(base64ToBytes(data.content));
-  return { trip: JSON.parse(text) as TripLike, sha: data.sha };
+  return { text, sha: data.sha };
 }
 
-// GitHub Contents APIはコミット直前のshaが一致しないと409を返す。
-// 複数端末からほぼ同時に更新されるケースを想定し、1回だけ取り直して再試行する。
-async function updateTripFile(
+async function putFile(
   env: Env,
-  tripId: string,
-  mutate: (trip: TripLike) => void,
+  path: string,
+  content: string | Uint8Array,
   message: string,
-): Promise<TripLike> {
-  for (let attempt = 0; attempt < 2; attempt++) {
-    const { trip, sha } = await getTripFile(env, tripId);
-    mutate(trip);
-    const text = JSON.stringify(trip, null, 2) + "\n";
-    const content = bytesToBase64(new TextEncoder().encode(text));
-    const res = await githubApi(env, `/contents/src/data/trips/${tripId}.json`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, content, sha, branch: env.GITHUB_BRANCH }),
-    });
-    if (res.ok) return trip;
-    if (res.status === 409 && attempt === 0) continue;
-    throw new Error(`保存に失敗しました (${res.status}): ${await res.text()}`);
-  }
-  throw new Error("保存に失敗しました（競合が解消できませんでした）");
-}
-
-async function putPhotoFile(env: Env, tripId: string, filename: string, bytes: Uint8Array, message: string) {
-  const content = bytesToBase64(bytes);
-  const path = `assets-source/photos/${tripId}/${filename}`;
+  sha?: string,
+): Promise<void> {
+  const bytes = typeof content === "string" ? new TextEncoder().encode(content) : content;
   const res = await githubApi(env, `/contents/${path}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message, content, branch: env.GITHUB_BRANCH }),
+    body: JSON.stringify({ message, content: bytesToBase64(bytes), branch: env.GITHUB_BRANCH, ...(sha ? { sha } : {}) }),
   });
-  if (!res.ok) throw new Error(`写真のアップロードに失敗しました (${res.status}): ${await res.text()}`);
-  return `photos/${tripId}/${filename}`;
+  if (!res.ok) throw new Error(`GitHubへの保存に失敗しました (${res.status}): ${await res.text()}`);
 }
 
-async function handleAddComment(request: Request, env: Env): Promise<Response> {
-  const body = (await request.json()) as { tripId: string; password: string; author: string; text: string };
-  checkPassword(env, body.password);
-  const text = body.text?.trim();
-  if (!text) throw new Error("text required");
-  const author = body.author?.trim() || "名無し";
-
-  const trip = await updateTripFile(
-    env,
-    body.tripId,
-    (t) => {
-      t.comments = [...(t.comments ?? []), { id: crypto.randomUUID(), author, text }];
-    },
-    `chat: ${author}のメモを追加`,
-  );
-  return jsonResponse(env, { ok: true, comments: trip.comments });
+interface TripSummary {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  regions: string[];
+  coverPhoto: string;
+  photoCount: number;
+  comment?: string;
+  location: { lat: number; lng: number };
 }
 
-async function handleRemoveComment(request: Request, env: Env): Promise<Response> {
-  const body = (await request.json()) as { tripId: string; password: string; commentId: string };
-  checkPassword(env, body.password);
-
-  const trip = await updateTripFile(
-    env,
-    body.tripId,
-    (t) => {
-      t.comments = (t.comments ?? []).filter((c) => c.id !== body.commentId);
-    },
-    "chat: メモを削除",
-  );
-  return jsonResponse(env, { ok: true, comments: trip.comments });
+interface TripLike {
+  id: string;
+  coverPhoto: string;
+  [key: string]: unknown;
 }
 
-async function handleUploadPhoto(request: Request, env: Env): Promise<Response> {
-  const url = new URL(request.url);
-  const password = url.searchParams.get("password") ?? "";
-  checkPassword(env, password);
+async function handleCreateTrip(request: Request, env: Env, url: URL): Promise<Response> {
+  checkPassword(env, url);
+  const input = (await request.json()) as {
+    id: string;
+    name: string;
+    startDate: string;
+    endDate: string;
+    regions: string[];
+  };
+  const { id, name, startDate, endDate, regions } = input;
+  if (!id || !/^[a-zA-Z0-9_-]+$/.test(id)) throw new Error("invalid trip id");
+  if (!name || !startDate || !endDate) throw new Error("name, startDate, endDate are required");
 
-  const tripId = url.searchParams.get("tripId");
-  const filename = url.searchParams.get("filename");
-  const date = url.searchParams.get("date");
-  const time = url.searchParams.get("time") ?? "";
-  if (!tripId || !filename || !date) throw new Error("tripId, filename, date are required");
+  const tripPath = `src/data/trips/${id}.json`;
+  const existing = await getFile(env, tripPath);
+  if (existing) throw new Error("この旅行IDは既に使われています");
 
-  const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, "_");
-  const finalName = `upload-${Date.now()}-${safeName}`;
+  const trip: TripLike = { id, name, startDate, endDate, regions: regions ?? [], coverPhoto: "", schedule: [] };
+  await putFile(env, tripPath, JSON.stringify(trip, null, 2) + "\n", `chat: ${name} を新規作成`);
+
+  const indexPath = "src/data/trips-index.json";
+  const indexFile = await getFile(env, indexPath);
+  if (!indexFile) throw new Error("trips-index.jsonが見つかりません");
+  const tripsIndex = JSON.parse(indexFile.text) as TripSummary[];
+  const summary: TripSummary = {
+    id,
+    name,
+    startDate,
+    endDate,
+    regions: regions ?? [],
+    coverPhoto: "",
+    photoCount: 0,
+    location: JAPAN_CENTER,
+  };
+  tripsIndex.push(summary);
+  await putFile(env, indexPath, JSON.stringify(tripsIndex, null, 2) + "\n", `chat: ${name} を一覧に追加`, indexFile.sha);
+
+  return jsonResponse(env, { ok: true, trip, summary });
+}
+
+async function handleSaveTrip(request: Request, env: Env, url: URL, tripId: string): Promise<Response> {
+  checkPassword(env, url);
+  const trip = (await request.json()) as TripLike;
+
+  const tripPath = `src/data/trips/${tripId}.json`;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const current = await getFile(env, tripPath);
+    if (!current) throw new Error("旅行データが見つかりません");
+    const res = await githubApi(env, `/contents/${tripPath}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: `chat: ${tripId} を更新`,
+        content: bytesToBase64(new TextEncoder().encode(JSON.stringify(trip, null, 2) + "\n")),
+        branch: env.GITHUB_BRANCH,
+        sha: current.sha,
+      }),
+    });
+    if (res.ok) break;
+    if (res.status === 409 && attempt === 0) continue;
+    throw new Error(`保存に失敗しました (${res.status}): ${await res.text()}`);
+  }
+
+  // カバー写真が変わっていたら一覧用サマリも合わせて更新する
+  const indexPath = "src/data/trips-index.json";
+  const indexFile = await getFile(env, indexPath);
+  if (indexFile) {
+    const tripsIndex = JSON.parse(indexFile.text) as TripSummary[];
+    const entry = tripsIndex.find((t) => t.id === tripId);
+    if (entry && entry.coverPhoto !== trip.coverPhoto) {
+      entry.coverPhoto = trip.coverPhoto as string;
+      await putFile(env, indexPath, JSON.stringify(tripsIndex, null, 2) + "\n", `chat: ${tripId} のカバー写真を更新`, indexFile.sha);
+    }
+  }
+
+  return jsonResponse(env, { ok: true });
+}
+
+async function handleUploadPhoto(request: Request, env: Env, url: URL, tripId: string): Promise<Response> {
+  checkPassword(env, url);
+  const rawFilename = url.searchParams.get("filename") ?? "";
+  const safeName = rawFilename.replace(/[^a-zA-Z0-9._-]/g, "_");
+  if (!safeName) throw new Error("invalid filename");
+
   const bytes = new Uint8Array(await request.arrayBuffer());
   if (bytes.byteLength === 0) throw new Error("empty file");
 
-  const path = await putPhotoFile(env, tripId, finalName, bytes, `chat: 写真を追加 (${finalName})`);
+  const finalName = `upload-${Date.now()}-${safeName}`;
+  const path = `assets-source/photos/${tripId}/${finalName}`;
+  await putFile(env, path, bytes, `chat: 写真を追加 (${finalName})`);
 
-  await updateTripFile(
-    env,
-    tripId,
-    (t) => {
-      t.photos = [...(t.photos ?? []), { path, date, time }];
-    },
-    `chat: ${finalName} をアルバムに追加`,
-  );
-
-  return jsonResponse(env, { ok: true, path });
+  return jsonResponse(env, { ok: true, path: `photos/${tripId}/${finalName}` });
 }
 
 export default {
@@ -191,14 +207,16 @@ export default {
 
     const url = new URL(request.url);
     try {
-      if (request.method === "POST" && url.pathname === "/comments/add") {
-        return await handleAddComment(request, env);
+      if (request.method === "POST" && url.pathname === "/api/trips-new") {
+        return await handleCreateTrip(request, env, url);
       }
-      if (request.method === "POST" && url.pathname === "/comments/remove") {
-        return await handleRemoveComment(request, env);
+      const tripMatch = url.pathname.match(/^\/api\/trips\/([a-zA-Z0-9_-]+)$/);
+      if (request.method === "POST" && tripMatch) {
+        return await handleSaveTrip(request, env, url, tripMatch[1]);
       }
-      if (request.method === "POST" && url.pathname === "/photos") {
-        return await handleUploadPhoto(request, env);
+      const photoMatch = url.pathname.match(/^\/api\/photos\/([a-zA-Z0-9_-]+)$/);
+      if (request.method === "POST" && photoMatch) {
+        return await handleUploadPhoto(request, env, url, photoMatch[1]);
       }
       return jsonResponse(env, { error: "not found" }, 404);
     } catch (err) {

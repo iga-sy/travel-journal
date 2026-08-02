@@ -9,8 +9,6 @@ import TripMap from "./sections/TripMap";
 import Album from "./sections/Album";
 import type { ScheduleItem, Trip } from "../types/trip";
 
-const isDev = import.meta.env.DEV;
-
 export default function TripDetailPage() {
   const { tripId } = useParams();
   const { getTrip, updateTrip } = useTripData();
@@ -124,7 +122,6 @@ export default function TripDetailPage() {
   }
 
   function renderEditControls() {
-    if (!isDev) return null;
     return (
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
         {!isEditing ? (
