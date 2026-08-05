@@ -48,5 +48,20 @@
       "lat": 37.08,
       "lng": 140.02
     }
+  },
+  {
+    "id": "nasu2026_08",
+    "name": "那須旅行　2026夏",
+    "startDate": "2026-08-08",
+    "endDate": "2026-08-10",
+    "regions": [
+      "那須"
+    ],
+    "coverPhoto": "",
+    "photoCount": 0,
+    "location": {
+      "lat": 36.2048,
+      "lng": 138.2529
+    }
   }
 ]
