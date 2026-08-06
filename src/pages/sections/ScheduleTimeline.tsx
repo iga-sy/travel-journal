@@ -2,11 +2,12 @@ import { useState } from "react";
 import type { Trip, ScheduleItem, ScheduleCategory } from "../../types/trip";
 import EncryptedImage from "../../components/EncryptedImage";
 import CropPicker from "../../components/CropPicker";
-import { MapPinIcon, GlobeIcon, InstagramIcon, CropIcon } from "../../components/icons";
+import { MapPinIcon, GlobeIcon, InstagramIcon, StarIcon, CropIcon } from "../../components/icons";
 import { objectPositionFor } from "../../data/photoCrop";
 import { timeOptionsWithCurrent, roundToNearestSlot } from "../../data/timeOptions";
+import { geocodeAddress } from "../../data/geocode";
 
-const CATEGORIES: ScheduleCategory[] = ["食事", "カフェ", "観光", "移動", "宿泊"];
+const CATEGORIES: ScheduleCategory[] = ["食事", "カフェ", "観光", "移動", "宿泊", "雑貨", "お土産"];
 
 interface IndexedItem {
   item: ScheduleItem;
@@ -42,7 +43,24 @@ export default function ScheduleTimeline({
   const groups = groupByDate(trip);
   const [pickerIndex, setPickerIndex] = useState<number | null>(null);
   const [cropTarget, setCropTarget] = useState<string | null>(null);
+  const [geoStatus, setGeoStatus] = useState<Record<number, "loading" | "error" | undefined>>({});
   const albumPhotos = trip.photos ?? [];
+
+  async function fetchLocation(index: number, address: string) {
+    if (!address.trim()) return;
+    setGeoStatus((prev) => ({ ...prev, [index]: "loading" }));
+    try {
+      const location = await geocodeAddress(address);
+      if (!location) {
+        setGeoStatus((prev) => ({ ...prev, [index]: "error" }));
+        return;
+      }
+      onChangeItem?.(index, { location });
+      setGeoStatus((prev) => ({ ...prev, [index]: undefined }));
+    } catch {
+      setGeoStatus((prev) => ({ ...prev, [index]: "error" }));
+    }
+  }
 
   function addPhoto(index: number, path: string) {
     const current = trip.schedule[index].photos ?? [];
@@ -275,12 +293,42 @@ export default function ScheduleTimeline({
                             </div>
                           )}
                         </div>
-                        <input
-                          className="field-input"
-                          value={item.address ?? ""}
-                          placeholder="住所"
-                          onChange={(e) => onChangeItem?.(index, { address: e.target.value })}
-                        />
+                        <div style={{ display: "flex", gap: 6 }}>
+                          <input
+                            className="field-input"
+                            value={item.address ?? ""}
+                            placeholder="住所"
+                            onChange={(e) => onChangeItem?.(index, { address: e.target.value })}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => fetchLocation(index, item.address ?? "")}
+                            disabled={!item.address?.trim() || geoStatus[index] === "loading"}
+                            title="住所から座標を自動取得"
+                            style={{
+                              flexShrink: 0,
+                              fontSize: 12,
+                              padding: "0 10px",
+                              borderRadius: 6,
+                              border: "1px solid var(--color-line)",
+                              background: "transparent",
+                              color: "var(--color-ink-soft)",
+                              cursor: item.address?.trim() ? "pointer" : "default",
+                            }}
+                          >
+                            {geoStatus[index] === "loading" ? "取得中…" : item.location ? "再取得" : "座標取得"}
+                          </button>
+                        </div>
+                        {geoStatus[index] === "error" && (
+                          <p style={{ margin: 0, fontSize: 11, color: "var(--color-food)" }}>
+                            座標が見つかりませんでした。住所を調整して再試行してください。
+                          </p>
+                        )}
+                        {item.location && geoStatus[index] !== "loading" && (
+                          <p style={{ margin: 0, fontSize: 11, color: "var(--color-ink-soft)" }}>
+                            座標: {item.location.lat.toFixed(6)}, {item.location.lng.toFixed(6)}
+                          </p>
+                        )}
                         <input
                           className="field-input"
                           value={item.googleMapsUrl ?? ""}
@@ -290,8 +338,14 @@ export default function ScheduleTimeline({
                         <input
                           className="field-input"
                           value={item.officialUrl ?? ""}
-                          placeholder="公式サイト/食べログURL"
+                          placeholder="公式サイトURL"
                           onChange={(e) => onChangeItem?.(index, { officialUrl: e.target.value })}
+                        />
+                        <input
+                          className="field-input"
+                          value={item.tabelogUrl ?? ""}
+                          placeholder="食べログURL"
+                          onChange={(e) => onChangeItem?.(index, { tabelogUrl: e.target.value })}
                         />
                         <input
                           className="field-input"
@@ -343,7 +397,7 @@ export default function ScheduleTimeline({
                             {item.address}
                           </p>
                         )}
-                        {(item.googleMapsUrl || item.officialUrl || item.instagramUrl) && (
+                        {(item.googleMapsUrl || item.officialUrl || item.tabelogUrl || item.instagramUrl) && (
                           <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
                             {item.googleMapsUrl && (
                               <a href={item.googleMapsUrl} target="_blank" rel="noreferrer" className="icon-link" title="Googleマップ">
@@ -351,8 +405,13 @@ export default function ScheduleTimeline({
                               </a>
                             )}
                             {item.officialUrl && (
-                              <a href={item.officialUrl} target="_blank" rel="noreferrer" className="icon-link" title="公式サイト/食べログ">
+                              <a href={item.officialUrl} target="_blank" rel="noreferrer" className="icon-link" title="公式サイト">
                                 <GlobeIcon size={14} />
+                              </a>
+                            )}
+                            {item.tabelogUrl && (
+                              <a href={item.tabelogUrl} target="_blank" rel="noreferrer" className="icon-link" title="食べログ">
+                                <StarIcon size={14} />
                               </a>
                             )}
                             {item.instagramUrl && (

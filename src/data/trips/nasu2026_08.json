@@ -7,5 +7,52 @@
     "那須"
   ],
   "coverPhoto": "",
-  "schedule": []
+  "schedule": [
+    {
+      "date": "2026-08-09",
+      "time": "12:00",
+      "name": "山里料理とそば ほし",
+      "category": "食事",
+      "address": "栃木県那須郡那須町湯本206-839",
+      "location": {
+        "lat": 37.0839423,
+        "lng": 139.9996155
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B1%B1%E9%87%8C%E6%96%99%E7%90%86%E3%81%A8%E3%81%9D%E3%81%B0%20%E3%81%BB%E3%81%97%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E6%B9%AF%E6%9C%AC206-839",
+      "officialUrl": "https://sobahoshi.com/",
+      "tabelogUrl": "https://tabelog.com/tochigi/A0905/A090501/9002018/",
+      "instagramUrl": "https://www.instagram.com/sobahoshi/",
+      "memo": "自家製粉十割そば。11:30~14:30(売り切れ次第終了・予約優先)、火~木定休。TEL 0287-76-1737"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "瑞玉珈琲",
+      "category": "カフェ",
+      "area": "那須町",
+      "address": "栃木県那須郡那須町高久乙594-81",
+      "location": {
+        "lat": 37.0651251,
+        "lng": 139.9791054
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E7%91%9E%E7%8E%89%E7%8F%88%E7%90%B2%20%E6%A0%83%E6%9C%A8%E7%9C%8C%E9%82%A3%E9%A0%88%E9%83%A1%E9%82%A3%E9%A0%88%E7%94%BA%E9%AB%98%E4%B9%85%E4%B9%99594-81",
+      "instagramUrl": "https://www.instagram.com/mizutama.coffee/",
+      "officialUrl": "https://mizu0coffee.base.shop/",
+      "tabelogUrl": "https://tabelog.com/tochigi/A0905/A090501/9023097/",
+      "memo": "那須岳ビューのカフェ。麹ミルクラテが名物。11:00~17:00、水木定休。"
+    },
+    {
+      "name": "Kome MARL 那須塩原くるる店",
+      "category": "カフェ",
+      "area": "那須塩原市",
+      "address": "栃木県那須塩原市本町6-32 まちなか交流センターくるる内",
+      "location": {
+        "lat": 36.9713908,
+        "lng": 140.0583446
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Kome%20MARL%20%E9%82%A3%E9%A0%88%E5%A1%A9%E5%8E%9F%E5%B8%82%E6%9C%AC%E7%94%BA6-32",
+      "instagramUrl": "https://www.instagram.com/komemarl_/",
+      "memo": "国産米粉のグルテンフリー専門店。米粉パン・焼き菓子・那須産生乳ソフトクリーム・コーヒー。10:30~17:30、火水定休。"
+    }
+  ]
 }

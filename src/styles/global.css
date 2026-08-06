@@ -108,6 +108,12 @@ img {
 .badge-宿泊 {
   background: var(--color-stay);
 }
+.badge-雑貨 {
+  background: var(--color-zakka);
+}
+.badge-お土産 {
+  background: var(--color-souvenir);
+}
 
 .leaflet-container {
   border-radius: var(--radius-lg);

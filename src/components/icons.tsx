@@ -34,6 +34,14 @@ export function InstagramIcon({ size = 16, style }: IconProps) {
   );
 }
 
+export function StarIcon({ size = 16, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} style={style}>
+      <path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17.3l-5.4 3.1 1-6.1-4.4-4.3 6.1-.9z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function SendIcon({ size = 16, style }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" style={style}>

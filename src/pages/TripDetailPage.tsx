@@ -4,10 +4,11 @@ import { useTripData, getTripDurationLabel } from "../data/TripDataContext";
 import { saveTrip } from "../data/editApi";
 import EncryptedImage from "../components/EncryptedImage";
 import ScheduleTimeline from "./sections/ScheduleTimeline";
+import CandidateList from "./sections/CandidateList";
 import TripComments from "./sections/TripComments";
 import TripMap from "./sections/TripMap";
 import Album from "./sections/Album";
-import type { ScheduleItem, Trip } from "../types/trip";
+import type { CandidateItem, ScheduleItem, Trip } from "../types/trip";
 
 export default function TripDetailPage() {
   const { tripId } = useParams();
@@ -67,6 +68,25 @@ export default function TripDetailPage() {
       // 実際の時刻を入力すれば、表示は時系列順に並び直る。
       ...prev,
       schedule: [...prev.schedule, { date, time: "23:45", name: "新しい予定", category: "観光" }],
+    }));
+  }
+
+  function changeCandidate(index: number, patch: Partial<CandidateItem>) {
+    mutateDraft((prev) => {
+      const candidates = (prev.candidates ?? []).slice();
+      candidates[index] = { ...candidates[index], ...patch };
+      return { ...prev, candidates };
+    });
+  }
+
+  function removeCandidate(index: number) {
+    mutateDraft((prev) => ({ ...prev, candidates: (prev.candidates ?? []).filter((_, i) => i !== index) }));
+  }
+
+  function addCandidate() {
+    mutateDraft((prev) => ({
+      ...prev,
+      candidates: [...(prev.candidates ?? []), { name: "新しい候補", category: "観光" }],
     }));
   }
 
@@ -256,6 +276,24 @@ export default function TripDetailPage() {
             <TripComments trip={trip} />
           </div>
         </div>
+        {isEditing && (
+          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+            {renderEditControls()}
+          </div>
+        )}
+      </section>
+
+      <section style={{ marginBottom: 40 }}>
+        <h2 className="page-title" style={{ fontSize: 20, marginBottom: 16 }}>
+          Candidates
+        </h2>
+        <CandidateList
+          trip={displayed}
+          isEditing={isEditing}
+          onChangeItem={changeCandidate}
+          onRemoveItem={removeCandidate}
+          onAddItem={addCandidate}
+        />
         {isEditing && (
           <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
             {renderEditControls()}

@@ -1,4 +1,4 @@
-export type ScheduleCategory = "食事" | "カフェ" | "観光" | "移動" | "宿泊";
+export type ScheduleCategory = "食事" | "カフェ" | "観光" | "移動" | "宿泊" | "雑貨" | "お土産";
 
 export interface GeoPoint {
   lat: number;
@@ -14,8 +14,22 @@ export interface ScheduleItem {
   location?: GeoPoint;
   googleMapsUrl?: string;
   officialUrl?: string;
+  tabelogUrl?: string;
   instagramUrl?: string;
   photos?: string[];
+  memo?: string;
+}
+
+export interface CandidateItem {
+  name: string;
+  category: ScheduleCategory;
+  area?: string;
+  address?: string;
+  location?: GeoPoint;
+  googleMapsUrl?: string;
+  officialUrl?: string;
+  tabelogUrl?: string;
+  instagramUrl?: string;
   memo?: string;
 }
 
@@ -40,6 +54,7 @@ export interface Trip {
   coverPhoto: string;
   memo?: string;
   schedule: ScheduleItem[];
+  candidates?: CandidateItem[];
   photos?: AlbumOnlyPhoto[];
   comments?: TripComment[];
   photoCrops?: Record<string, { x: number; y: number }>;
