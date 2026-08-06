@@ -59,7 +59,29 @@ export default function ScheduleTimeline({
   }
 
   if (groups.length === 0) {
-    return <p style={{ color: "var(--color-ink-soft)" }}>スケジュールがまだ登録されていません。</p>;
+    return (
+      <div>
+        <p style={{ color: "var(--color-ink-soft)", marginBottom: isEditing ? 12 : 0 }}>
+          スケジュールがまだ登録されていません。
+        </p>
+        {isEditing && (
+          <button
+            onClick={() => onAddItem?.(trip.startDate)}
+            style={{
+              fontSize: 13,
+              padding: "6px 14px",
+              borderRadius: 999,
+              border: "1px dashed var(--color-line)",
+              background: "transparent",
+              color: "var(--color-ink-soft)",
+              cursor: "pointer",
+            }}
+          >
+            + add schedule
+          </button>
+        )}
+      </div>
+    );
   }
 
   return (
