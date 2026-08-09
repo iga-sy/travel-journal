@@ -57,6 +57,12 @@
     {
       "name": "WHITE NOTE",
       "category": "雑貨"
+    },
+    {
+      "name": "佐野アウトレット",
+      "category": "食事",
+      "address": "〒327-0822 栃木県佐野市越名町２０５８",
+      "googleMapsUrl": "https://maps.app.goo.gl/CcQ3DTpB5b8yVDs28?g_st=ic"
     }
   ]
 }
